@@ -2,7 +2,7 @@
   "name": "first_asp_app",
   "version": "1.0.0",
   "scripts": {
-    "build": "dotnet publish -c Release -o dist",
+    "build": "dotnet publish -c Release -o .vercel/output/static",
     "start": "/usr/local/share/dotnet/dotnet publish/first_asp_app.dll"
   }
 }

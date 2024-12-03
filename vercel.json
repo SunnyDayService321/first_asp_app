@@ -1,18 +1,18 @@
 {
   "version": 2,
+  "buildCommand": "dotnet publish -c Release -o .vercel/output/static",
+  "outputDirectory": ".vercel/output/static",
+  "installCommand": "curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --version 8.0.100",
   "builds": [
     {
-      "src": "**/*.csproj",
-      "use": "@vercel/static-build",
-      "config": {
-        "platform": "linux-x64"
-      }
+      "src": "**/*.cs",
+      "use": "@vercel/node"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/"
+      "dest": "/api/$1"
     }
   ]
-}
+ }

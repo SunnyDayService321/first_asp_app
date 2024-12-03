@@ -1,12 +1,22 @@
 {
   "version": 2,
-  "buildCommand": "npm run build",
-  "outputDirectory": "publish",
-  "public": true,
-  "rewrites": [
+  "builds": [
     {
-      "source": "/(.*)",
-      "destination": "/api/$1"
+      "src": "first_asp_app.csproj",
+      "use": "@vercel/static-build",
+      "config": {
+        "command": "/usr/local/share/dotnet/dotnet publish -c Release -o publish",
+        "output": "publish"
+      }
     }
-  ]
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/publish/$1"
+    }
+  ],
+  "env": {
+    "ASPNETCORE_ENVIRONMENT": "Production"
+  }
 }

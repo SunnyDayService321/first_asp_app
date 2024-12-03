@@ -13,6 +13,5 @@
     }
   ],
   "buildCommand": "dotnet publish -c Release -o .vercel/output/static",
-  "outputDirectory": ".vercel/output/static",
-  "framework": "dotnet"
+  "outputDirectory": ".vercel/output/static"
 }

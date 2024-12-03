@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "8eZDVFonezA=",
+  "dgSpecHash": "T4t3eEVzCjE=",
   "success": true,
   "projectFilePath": "/Users/a/projects/my_projects/first_asp_app/first_asp_app.csproj",
   "expectedPackageFiles": [
@@ -105,6 +105,7 @@
     "/Users/a/.nuget/packages/microsoft.identitymodel.protocols/6.24.0/microsoft.identitymodel.protocols.6.24.0.nupkg.sha512",
     "/Users/a/.nuget/packages/microsoft.identitymodel.protocols.openidconnect/6.24.0/microsoft.identitymodel.protocols.openidconnect.6.24.0.nupkg.sha512",
     "/Users/a/.nuget/packages/microsoft.identitymodel.tokens/6.24.0/microsoft.identitymodel.tokens.6.24.0.nupkg.sha512",
+    "/Users/a/.nuget/packages/microsoft.net.illink.tasks/8.0.11/microsoft.net.illink.tasks.8.0.11.nupkg.sha512",
     "/Users/a/.nuget/packages/microsoft.net.stringtools/17.7.2/microsoft.net.stringtools.17.7.2.nupkg.sha512",
     "/Users/a/.nuget/packages/microsoft.netcore.platforms/1.1.0/microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "/Users/a/.nuget/packages/microsoft.netcore.targets/1.1.0/microsoft.netcore.targets.1.1.0.nupkg.sha512",
@@ -128,6 +129,10 @@
     "/Users/a/.nuget/packages/nuget.projectmodel/6.3.1/nuget.projectmodel.6.3.1.nupkg.sha512",
     "/Users/a/.nuget/packages/nuget.protocol/6.3.1/nuget.protocol.6.3.1.nupkg.sha512",
     "/Users/a/.nuget/packages/nuget.versioning/6.3.1/nuget.versioning.6.3.1.nupkg.sha512",
+    "/Users/a/.nuget/packages/runtime.any.system.runtime/4.3.0/runtime.any.system.runtime.4.3.0.nupkg.sha512",
+    "/Users/a/.nuget/packages/runtime.any.system.text.encoding/4.3.0/runtime.any.system.text.encoding.4.3.0.nupkg.sha512",
+    "/Users/a/.nuget/packages/runtime.native.system/4.3.0/runtime.native.system.4.3.0.nupkg.sha512",
+    "/Users/a/.nuget/packages/runtime.unix.system.private.uri/4.3.0/runtime.unix.system.private.uri.4.3.0.nupkg.sha512",
     "/Users/a/.nuget/packages/sqlitepclraw.bundle_e_sqlite3/2.1.6/sqlitepclraw.bundle_e_sqlite3.2.1.6.nupkg.sha512",
     "/Users/a/.nuget/packages/sqlitepclraw.core/2.1.6/sqlitepclraw.core.2.1.6.nupkg.sha512",
     "/Users/a/.nuget/packages/sqlitepclraw.lib.e_sqlite3/2.1.6/sqlitepclraw.lib.e_sqlite3.2.1.6.nupkg.sha512",
@@ -151,6 +156,7 @@
     "/Users/a/.nuget/packages/system.memory/4.5.4/system.memory.4.5.4.nupkg.sha512",
     "/Users/a/.nuget/packages/system.memory.data/1.0.2/system.memory.data.1.0.2.nupkg.sha512",
     "/Users/a/.nuget/packages/system.numerics.vectors/4.5.0/system.numerics.vectors.4.5.0.nupkg.sha512",
+    "/Users/a/.nuget/packages/system.private.uri/4.3.0/system.private.uri.4.3.0.nupkg.sha512",
     "/Users/a/.nuget/packages/system.reflection.metadata/7.0.0/system.reflection.metadata.7.0.0.nupkg.sha512",
     "/Users/a/.nuget/packages/system.reflection.metadataloadcontext/7.0.0/system.reflection.metadataloadcontext.7.0.0.nupkg.sha512",
     "/Users/a/.nuget/packages/system.runtime/4.3.0/system.runtime.4.3.0.nupkg.sha512",
@@ -168,7 +174,11 @@
     "/Users/a/.nuget/packages/system.threading.channels/7.0.0/system.threading.channels.7.0.0.nupkg.sha512",
     "/Users/a/.nuget/packages/system.threading.tasks.dataflow/7.0.0/system.threading.tasks.dataflow.7.0.0.nupkg.sha512",
     "/Users/a/.nuget/packages/system.threading.tasks.extensions/4.5.4/system.threading.tasks.extensions.4.5.4.nupkg.sha512",
-    "/Users/a/.nuget/packages/system.windows.extensions/7.0.0/system.windows.extensions.7.0.0.nupkg.sha512"
+    "/Users/a/.nuget/packages/system.windows.extensions/7.0.0/system.windows.extensions.7.0.0.nupkg.sha512",
+    "/Users/a/.nuget/packages/microsoft.netcore.app.runtime.linux-x64/8.0.11/microsoft.netcore.app.runtime.linux-x64.8.0.11.nupkg.sha512",
+    "/Users/a/.nuget/packages/microsoft.aspnetcore.app.runtime.linux-x64/8.0.11/microsoft.aspnetcore.app.runtime.linux-x64.8.0.11.nupkg.sha512",
+    "/Users/a/.nuget/packages/microsoft.netcore.app.crossgen2.osx-arm64/8.0.11/microsoft.netcore.app.crossgen2.osx-arm64.8.0.11.nupkg.sha512",
+    "/Users/a/.nuget/packages/microsoft.netcore.app.host.linux-x64/8.0.11/microsoft.netcore.app.host.linux-x64.8.0.11.nupkg.sha512"
   ],
   "logs": [
     {
@@ -178,7 +188,8 @@
       "message": "パッケージ 'Azure.Identity' 1.7.0 に既知の 高 重大度の脆弱性があります、https://github.com/advisories/GHSA-5mfx-4wcx-rv27",
       "libraryId": "Azure.Identity",
       "targetGraphs": [
-        "net8.0"
+        "net8.0",
+        "net8.0/linux-x64"
       ]
     },
     {
@@ -188,7 +199,8 @@
       "message": "パッケージ 'Azure.Identity' 1.7.0 に既知の 中 重大度の脆弱性があります、https://github.com/advisories/GHSA-m5vv-6r4h-3vj9",
       "libraryId": "Azure.Identity",
       "targetGraphs": [
-        "net8.0"
+        "net8.0",
+        "net8.0/linux-x64"
       ]
     },
     {
@@ -198,7 +210,8 @@
       "message": "パッケージ 'Azure.Identity' 1.7.0 に既知の 中 重大度の脆弱性があります、https://github.com/advisories/GHSA-wvxc-855f-jvrv",
       "libraryId": "Azure.Identity",
       "targetGraphs": [
-        "net8.0"
+        "net8.0",
+        "net8.0/linux-x64"
       ]
     },
     {
@@ -208,7 +221,8 @@
       "message": "パッケージ 'Microsoft.Data.SqlClient' 5.1.1 に既知の 高 重大度の脆弱性があります、https://github.com/advisories/GHSA-98g6-xh36-x2p7",
       "libraryId": "Microsoft.Data.SqlClient",
       "targetGraphs": [
-        "net8.0"
+        "net8.0",
+        "net8.0/linux-x64"
       ]
     },
     {
@@ -218,7 +232,8 @@
       "message": "パッケージ 'Microsoft.Extensions.Caching.Memory' 8.0.0 に既知の 高 重大度の脆弱性があります、https://github.com/advisories/GHSA-qj66-m88j-hmgj",
       "libraryId": "Microsoft.Extensions.Caching.Memory",
       "targetGraphs": [
-        "net8.0"
+        "net8.0",
+        "net8.0/linux-x64"
       ]
     },
     {
@@ -228,7 +243,8 @@
       "message": "パッケージ 'Microsoft.IdentityModel.JsonWebTokens' 6.24.0 に既知の 中 重大度の脆弱性があります、https://github.com/advisories/GHSA-59j7-ghrg-fj52",
       "libraryId": "Microsoft.IdentityModel.JsonWebTokens",
       "targetGraphs": [
-        "net8.0"
+        "net8.0",
+        "net8.0/linux-x64"
       ]
     },
     {
@@ -238,7 +254,8 @@
       "message": "パッケージ 'NuGet.Common' 6.3.1 に既知の 高 重大度の脆弱性があります、https://github.com/advisories/GHSA-6qmf-mmc7-6c2p",
       "libraryId": "NuGet.Common",
       "targetGraphs": [
-        "net8.0"
+        "net8.0",
+        "net8.0/linux-x64"
       ]
     },
     {
@@ -248,7 +265,8 @@
       "message": "パッケージ 'NuGet.Packaging' 6.3.1 に既知の クリティカル 重大度の脆弱性があります、https://github.com/advisories/GHSA-68w7-72jg-6qpp",
       "libraryId": "NuGet.Packaging",
       "targetGraphs": [
-        "net8.0"
+        "net8.0",
+        "net8.0/linux-x64"
       ]
     },
     {
@@ -258,7 +276,8 @@
       "message": "パッケージ 'NuGet.Protocol' 6.3.1 に既知の 高 重大度の脆弱性があります、https://github.com/advisories/GHSA-6qmf-mmc7-6c2p",
       "libraryId": "NuGet.Protocol",
       "targetGraphs": [
-        "net8.0"
+        "net8.0",
+        "net8.0/linux-x64"
       ]
     },
     {
@@ -268,7 +287,8 @@
       "message": "パッケージ 'System.Formats.Asn1' 5.0.0 に既知の 高 重大度の脆弱性があります、https://github.com/advisories/GHSA-447r-wph3-92pm",
       "libraryId": "System.Formats.Asn1",
       "targetGraphs": [
-        "net8.0"
+        "net8.0",
+        "net8.0/linux-x64"
       ]
     },
     {
@@ -278,7 +298,38 @@
       "message": "パッケージ 'System.IdentityModel.Tokens.Jwt' 6.24.0 に既知の 中 重大度の脆弱性があります、https://github.com/advisories/GHSA-59j7-ghrg-fj52",
       "libraryId": "System.IdentityModel.Tokens.Jwt",
       "targetGraphs": [
-        "net8.0"
+        "net8.0",
+        "net8.0/linux-x64"
+      ]
+    },
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "パッケージ 'System.Private.Uri' 4.3.0 に既知の 高 重大度の脆弱性があります、https://github.com/advisories/GHSA-5f2m-466j-3848",
+      "libraryId": "System.Private.Uri",
+      "targetGraphs": [
+        "net8.0/linux-x64"
+      ]
+    },
+    {
+      "code": "NU1902",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "パッケージ 'System.Private.Uri' 4.3.0 に既知の 中 重大度の脆弱性があります、https://github.com/advisories/GHSA-x5qj-9vmx-7g6g",
+      "libraryId": "System.Private.Uri",
+      "targetGraphs": [
+        "net8.0/linux-x64"
+      ]
+    },
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "パッケージ 'System.Private.Uri' 4.3.0 に既知の 高 重大度の脆弱性があります、https://github.com/advisories/GHSA-xhfc-gr8f-ffwc",
+      "libraryId": "System.Private.Uri",
+      "targetGraphs": [
+        "net8.0/linux-x64"
       ]
     },
     {
@@ -288,7 +339,8 @@
       "message": "パッケージ 'System.Text.Json' 8.0.0 に既知の 高 重大度の脆弱性があります、https://github.com/advisories/GHSA-8g4q-xg66-9fp4",
       "libraryId": "System.Text.Json",
       "targetGraphs": [
-        "net8.0"
+        "net8.0",
+        "net8.0/linux-x64"
       ]
     },
     {
@@ -298,7 +350,8 @@
       "message": "パッケージ 'System.Text.Json' 8.0.0 に既知の 高 重大度の脆弱性があります、https://github.com/advisories/GHSA-hh2w-p6rv-4g7w",
       "libraryId": "System.Text.Json",
       "targetGraphs": [
-        "net8.0"
+        "net8.0",
+        "net8.0/linux-x64"
       ]
     }
   ]

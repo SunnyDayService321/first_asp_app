@@ -2,17 +2,19 @@
   "version": 2,
   "builds": [
     {
-      "src": "build.sh",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "publish"
-      }
+      "src": "first_asp_app.csproj",
+      "use": "@vercel/dotnet",
+      "config": { "framework": "net8.0" }
+    },
+    {
+      "src": "api/index.js",
+      "use": "@vercel/node"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/publish/$1"
+      "dest": "/api/index.js"
     }
   ]
 }

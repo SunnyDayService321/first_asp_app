@@ -2,14 +2,14 @@
   "version": 2,
   "builds": [
     {
-      "src": "publish/**/*",
-      "use": "@vercel/static"
+      "src": "first_asp_app.csproj",
+      "use": "@vercel/dotnet"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/publish/$1"
+      "dest": "first_asp_app.csproj"
     }
   ]
 }

@@ -1769,12 +1769,6 @@
           }
         }
       },
-      "Microsoft.NET.ILLink.Tasks/8.0.11": {
-        "type": "package",
-        "build": {
-          "build/Microsoft.NET.ILLink.Tasks.props": {}
-        }
-      },
       "Microsoft.NET.StringTools/17.7.2": {
         "type": "package",
         "compile": {
@@ -2931,7 +2925,7 @@
         }
       }
     },
-    "net8.0/linux-x64": {
+    "net8.0/osx-arm64": {
       "Azure.Core/1.25.0": {
         "type": "package",
         "dependencies": {
@@ -4671,12 +4665,6 @@
           }
         }
       },
-      "Microsoft.NET.ILLink.Tasks/8.0.11": {
-        "type": "package",
-        "build": {
-          "build/Microsoft.NET.ILLink.Tasks.props": {}
-        }
-      },
       "Microsoft.NET.StringTools/17.7.2": {
         "type": "package",
         "compile": {
@@ -5112,7 +5100,7 @@
           "lib/netstandard2.0/_._": {}
         },
         "native": {
-          "runtimes/linux-x64/native/libe_sqlite3.so": {}
+          "runtimes/osx-arm64/native/libe_sqlite3.dylib": {}
         },
         "build": {
           "buildTransitive/net8.0/SQLitePCLRaw.lib.e_sqlite3.targets": {}
@@ -8591,57 +8579,6 @@
         "microsoft.identitymodel.tokens.nuspec"
       ]
     },
-    "Microsoft.NET.ILLink.Tasks/8.0.11": {
-      "sha512": "zk5lnZrYJgtuJG8L4v17Ej8rZ3PUcR2iweNV08BaO5LbYHIi2wNaVNcJoLxvqgQdnjLlKnCCfVGLDr6QHeAarQ==",
-      "type": "package",
-      "path": "microsoft.net.illink.tasks/8.0.11",
-      "hasTools": true,
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "Icon.png",
-        "LICENSE.TXT",
-        "Sdk/Sdk.props",
-        "THIRD-PARTY-NOTICES.TXT",
-        "analyzers/dotnet/cs/ILLink.CodeFixProvider.dll",
-        "analyzers/dotnet/cs/ILLink.RoslynAnalyzer.dll",
-        "build/Microsoft.NET.ILLink.Analyzers.props",
-        "build/Microsoft.NET.ILLink.Tasks.props",
-        "build/Microsoft.NET.ILLink.targets",
-        "microsoft.net.illink.tasks.8.0.11.nupkg.sha512",
-        "microsoft.net.illink.tasks.nuspec",
-        "tools/net472/ILLink.Tasks.dll",
-        "tools/net472/ILLink.Tasks.dll.config",
-        "tools/net472/Mono.Cecil.Mdb.dll",
-        "tools/net472/Mono.Cecil.Pdb.dll",
-        "tools/net472/Mono.Cecil.Rocks.dll",
-        "tools/net472/Mono.Cecil.dll",
-        "tools/net472/Sdk/Sdk.props",
-        "tools/net472/System.Buffers.dll",
-        "tools/net472/System.Collections.Immutable.dll",
-        "tools/net472/System.Memory.dll",
-        "tools/net472/System.Numerics.Vectors.dll",
-        "tools/net472/System.Reflection.Metadata.dll",
-        "tools/net472/System.Runtime.CompilerServices.Unsafe.dll",
-        "tools/net472/build/Microsoft.NET.ILLink.Analyzers.props",
-        "tools/net472/build/Microsoft.NET.ILLink.Tasks.props",
-        "tools/net472/build/Microsoft.NET.ILLink.targets",
-        "tools/net8.0/ILLink.Tasks.deps.json",
-        "tools/net8.0/ILLink.Tasks.dll",
-        "tools/net8.0/Mono.Cecil.Mdb.dll",
-        "tools/net8.0/Mono.Cecil.Pdb.dll",
-        "tools/net8.0/Mono.Cecil.Rocks.dll",
-        "tools/net8.0/Mono.Cecil.dll",
-        "tools/net8.0/Sdk/Sdk.props",
-        "tools/net8.0/build/Microsoft.NET.ILLink.Analyzers.props",
-        "tools/net8.0/build/Microsoft.NET.ILLink.Tasks.props",
-        "tools/net8.0/build/Microsoft.NET.ILLink.targets",
-        "tools/net8.0/illink.deps.json",
-        "tools/net8.0/illink.dll",
-        "tools/net8.0/illink.runtimeconfig.json",
-        "useSharedDesignerContext.txt"
-      ]
-    },
     "Microsoft.NET.StringTools/17.7.2": {
       "sha512": "GDm2qPXJeWR4FSwY90zYZ+Wd0CN4FE+Nu2F57Vu8avatMzNQxV9WaVEBZFKbT4JLhNcXKc0CKBO50oVoRJR5BQ==",
       "type": "package",
@@ -11013,7 +10950,6 @@
       "Microsoft.EntityFrameworkCore.SQLite >= 8.0.0",
       "Microsoft.EntityFrameworkCore.SqlServer >= 8.0.0",
       "Microsoft.EntityFrameworkCore.Tools >= 8.0.0",
-      "Microsoft.NET.ILLink.Tasks >= 8.0.11",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 8.0.0"
     ]
   },
@@ -11023,11 +10959,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/a/projects/my_projects/first_asp_app/first_asp_app.csproj",
+      "projectUniqueName": "/Users/a/projects/first_asp_app/first_asp_app.csproj",
       "projectName": "first_asp_app",
-      "projectPath": "/Users/a/projects/my_projects/first_asp_app/first_asp_app.csproj",
+      "projectPath": "/Users/a/projects/first_asp_app/first_asp_app.csproj",
       "packagesPath": "/Users/a/.nuget/packages/",
-      "outputPath": "/Users/a/projects/my_projects/first_asp_app/obj/",
+      "outputPath": "/Users/a/projects/first_asp_app/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/a/.nuget/NuGet/NuGet.Config"
@@ -11084,12 +11020,6 @@
             "target": "Package",
             "version": "[8.0.0, )"
           },
-          "Microsoft.NET.ILLink.Tasks": {
-            "suppressParent": "All",
-            "target": "Package",
-            "version": "[8.0.11, )",
-            "autoReferenced": true
-          },
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
             "target": "Package",
             "version": "[8.0.0, )"
@@ -11108,19 +11038,11 @@
         "warn": true,
         "downloadDependencies": [
           {
-            "name": "Microsoft.AspNetCore.App.Runtime.linux-x64",
+            "name": "Microsoft.AspNetCore.App.Runtime.osx-arm64",
             "version": "[8.0.11, 8.0.11]"
           },
           {
-            "name": "Microsoft.NETCore.App.Crossgen2.osx-arm64",
-            "version": "[8.0.11, 8.0.11]"
-          },
-          {
-            "name": "Microsoft.NETCore.App.Host.linux-x64",
-            "version": "[8.0.11, 8.0.11]"
-          },
-          {
-            "name": "Microsoft.NETCore.App.Runtime.linux-x64",
+            "name": "Microsoft.NETCore.App.Runtime.osx-arm64",
             "version": "[8.0.11, 8.0.11]"
           }
         ],
@@ -11136,7 +11058,7 @@
       }
     },
     "runtimes": {
-      "linux-x64": {
+      "osx-arm64": {
         "#import": []
       }
     }
@@ -11150,7 +11072,7 @@
       "libraryId": "Azure.Identity",
       "targetGraphs": [
         "net8.0",
-        "net8.0/linux-x64"
+        "net8.0/osx-arm64"
       ]
     },
     {
@@ -11161,7 +11083,7 @@
       "libraryId": "Azure.Identity",
       "targetGraphs": [
         "net8.0",
-        "net8.0/linux-x64"
+        "net8.0/osx-arm64"
       ]
     },
     {
@@ -11172,7 +11094,7 @@
       "libraryId": "Azure.Identity",
       "targetGraphs": [
         "net8.0",
-        "net8.0/linux-x64"
+        "net8.0/osx-arm64"
       ]
     },
     {
@@ -11183,7 +11105,7 @@
       "libraryId": "Microsoft.Data.SqlClient",
       "targetGraphs": [
         "net8.0",
-        "net8.0/linux-x64"
+        "net8.0/osx-arm64"
       ]
     },
     {
@@ -11194,7 +11116,7 @@
       "libraryId": "Microsoft.Extensions.Caching.Memory",
       "targetGraphs": [
         "net8.0",
-        "net8.0/linux-x64"
+        "net8.0/osx-arm64"
       ]
     },
     {
@@ -11205,7 +11127,7 @@
       "libraryId": "Microsoft.IdentityModel.JsonWebTokens",
       "targetGraphs": [
         "net8.0",
-        "net8.0/linux-x64"
+        "net8.0/osx-arm64"
       ]
     },
     {
@@ -11216,7 +11138,7 @@
       "libraryId": "NuGet.Common",
       "targetGraphs": [
         "net8.0",
-        "net8.0/linux-x64"
+        "net8.0/osx-arm64"
       ]
     },
     {
@@ -11227,7 +11149,7 @@
       "libraryId": "NuGet.Packaging",
       "targetGraphs": [
         "net8.0",
-        "net8.0/linux-x64"
+        "net8.0/osx-arm64"
       ]
     },
     {
@@ -11238,7 +11160,7 @@
       "libraryId": "NuGet.Protocol",
       "targetGraphs": [
         "net8.0",
-        "net8.0/linux-x64"
+        "net8.0/osx-arm64"
       ]
     },
     {
@@ -11249,7 +11171,7 @@
       "libraryId": "System.Formats.Asn1",
       "targetGraphs": [
         "net8.0",
-        "net8.0/linux-x64"
+        "net8.0/osx-arm64"
       ]
     },
     {
@@ -11260,7 +11182,7 @@
       "libraryId": "System.IdentityModel.Tokens.Jwt",
       "targetGraphs": [
         "net8.0",
-        "net8.0/linux-x64"
+        "net8.0/osx-arm64"
       ]
     },
     {
@@ -11270,7 +11192,7 @@
       "message": "パッケージ 'System.Private.Uri' 4.3.0 に既知の 高 重大度の脆弱性があります、https://github.com/advisories/GHSA-5f2m-466j-3848",
       "libraryId": "System.Private.Uri",
       "targetGraphs": [
-        "net8.0/linux-x64"
+        "net8.0/osx-arm64"
       ]
     },
     {
@@ -11280,7 +11202,7 @@
       "message": "パッケージ 'System.Private.Uri' 4.3.0 に既知の 中 重大度の脆弱性があります、https://github.com/advisories/GHSA-x5qj-9vmx-7g6g",
       "libraryId": "System.Private.Uri",
       "targetGraphs": [
-        "net8.0/linux-x64"
+        "net8.0/osx-arm64"
       ]
     },
     {
@@ -11290,7 +11212,7 @@
       "message": "パッケージ 'System.Private.Uri' 4.3.0 に既知の 高 重大度の脆弱性があります、https://github.com/advisories/GHSA-xhfc-gr8f-ffwc",
       "libraryId": "System.Private.Uri",
       "targetGraphs": [
-        "net8.0/linux-x64"
+        "net8.0/osx-arm64"
       ]
     },
     {
@@ -11301,7 +11223,7 @@
       "libraryId": "System.Text.Json",
       "targetGraphs": [
         "net8.0",
-        "net8.0/linux-x64"
+        "net8.0/osx-arm64"
       ]
     },
     {
@@ -11312,7 +11234,7 @@
       "libraryId": "System.Text.Json",
       "targetGraphs": [
         "net8.0",
-        "net8.0/linux-x64"
+        "net8.0/osx-arm64"
       ]
     }
   ]

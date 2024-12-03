@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "T4t3eEVzCjE=",
+  "dgSpecHash": "MnzB39698OI=",
   "success": true,
-  "projectFilePath": "/Users/a/projects/my_projects/first_asp_app/first_asp_app.csproj",
+  "projectFilePath": "/Users/a/projects/first_asp_app/first_asp_app.csproj",
   "expectedPackageFiles": [
     "/Users/a/.nuget/packages/azure.core/1.25.0/azure.core.1.25.0.nupkg.sha512",
     "/Users/a/.nuget/packages/azure.identity/1.7.0/azure.identity.1.7.0.nupkg.sha512",
@@ -105,7 +105,6 @@
     "/Users/a/.nuget/packages/microsoft.identitymodel.protocols/6.24.0/microsoft.identitymodel.protocols.6.24.0.nupkg.sha512",
     "/Users/a/.nuget/packages/microsoft.identitymodel.protocols.openidconnect/6.24.0/microsoft.identitymodel.protocols.openidconnect.6.24.0.nupkg.sha512",
     "/Users/a/.nuget/packages/microsoft.identitymodel.tokens/6.24.0/microsoft.identitymodel.tokens.6.24.0.nupkg.sha512",
-    "/Users/a/.nuget/packages/microsoft.net.illink.tasks/8.0.11/microsoft.net.illink.tasks.8.0.11.nupkg.sha512",
     "/Users/a/.nuget/packages/microsoft.net.stringtools/17.7.2/microsoft.net.stringtools.17.7.2.nupkg.sha512",
     "/Users/a/.nuget/packages/microsoft.netcore.platforms/1.1.0/microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "/Users/a/.nuget/packages/microsoft.netcore.targets/1.1.0/microsoft.netcore.targets.1.1.0.nupkg.sha512",
@@ -175,10 +174,8 @@
     "/Users/a/.nuget/packages/system.threading.tasks.dataflow/7.0.0/system.threading.tasks.dataflow.7.0.0.nupkg.sha512",
     "/Users/a/.nuget/packages/system.threading.tasks.extensions/4.5.4/system.threading.tasks.extensions.4.5.4.nupkg.sha512",
     "/Users/a/.nuget/packages/system.windows.extensions/7.0.0/system.windows.extensions.7.0.0.nupkg.sha512",
-    "/Users/a/.nuget/packages/microsoft.netcore.app.runtime.linux-x64/8.0.11/microsoft.netcore.app.runtime.linux-x64.8.0.11.nupkg.sha512",
-    "/Users/a/.nuget/packages/microsoft.aspnetcore.app.runtime.linux-x64/8.0.11/microsoft.aspnetcore.app.runtime.linux-x64.8.0.11.nupkg.sha512",
-    "/Users/a/.nuget/packages/microsoft.netcore.app.crossgen2.osx-arm64/8.0.11/microsoft.netcore.app.crossgen2.osx-arm64.8.0.11.nupkg.sha512",
-    "/Users/a/.nuget/packages/microsoft.netcore.app.host.linux-x64/8.0.11/microsoft.netcore.app.host.linux-x64.8.0.11.nupkg.sha512"
+    "/Users/a/.nuget/packages/microsoft.netcore.app.runtime.osx-arm64/8.0.11/microsoft.netcore.app.runtime.osx-arm64.8.0.11.nupkg.sha512",
+    "/Users/a/.nuget/packages/microsoft.aspnetcore.app.runtime.osx-arm64/8.0.11/microsoft.aspnetcore.app.runtime.osx-arm64.8.0.11.nupkg.sha512"
   ],
   "logs": [
     {
@@ -189,7 +186,7 @@
       "libraryId": "Azure.Identity",
       "targetGraphs": [
         "net8.0",
-        "net8.0/linux-x64"
+        "net8.0/osx-arm64"
       ]
     },
     {
@@ -200,7 +197,7 @@
       "libraryId": "Azure.Identity",
       "targetGraphs": [
         "net8.0",
-        "net8.0/linux-x64"
+        "net8.0/osx-arm64"
       ]
     },
     {
@@ -211,7 +208,7 @@
       "libraryId": "Azure.Identity",
       "targetGraphs": [
         "net8.0",
-        "net8.0/linux-x64"
+        "net8.0/osx-arm64"
       ]
     },
     {
@@ -222,7 +219,7 @@
       "libraryId": "Microsoft.Data.SqlClient",
       "targetGraphs": [
         "net8.0",
-        "net8.0/linux-x64"
+        "net8.0/osx-arm64"
       ]
     },
     {
@@ -233,7 +230,7 @@
       "libraryId": "Microsoft.Extensions.Caching.Memory",
       "targetGraphs": [
         "net8.0",
-        "net8.0/linux-x64"
+        "net8.0/osx-arm64"
       ]
     },
     {
@@ -244,7 +241,7 @@
       "libraryId": "Microsoft.IdentityModel.JsonWebTokens",
       "targetGraphs": [
         "net8.0",
-        "net8.0/linux-x64"
+        "net8.0/osx-arm64"
       ]
     },
     {
@@ -255,7 +252,7 @@
       "libraryId": "NuGet.Common",
       "targetGraphs": [
         "net8.0",
-        "net8.0/linux-x64"
+        "net8.0/osx-arm64"
       ]
     },
     {
@@ -266,7 +263,7 @@
       "libraryId": "NuGet.Packaging",
       "targetGraphs": [
         "net8.0",
-        "net8.0/linux-x64"
+        "net8.0/osx-arm64"
       ]
     },
     {
@@ -277,7 +274,7 @@
       "libraryId": "NuGet.Protocol",
       "targetGraphs": [
         "net8.0",
-        "net8.0/linux-x64"
+        "net8.0/osx-arm64"
       ]
     },
     {
@@ -288,7 +285,7 @@
       "libraryId": "System.Formats.Asn1",
       "targetGraphs": [
         "net8.0",
-        "net8.0/linux-x64"
+        "net8.0/osx-arm64"
       ]
     },
     {
@@ -299,7 +296,7 @@
       "libraryId": "System.IdentityModel.Tokens.Jwt",
       "targetGraphs": [
         "net8.0",
-        "net8.0/linux-x64"
+        "net8.0/osx-arm64"
       ]
     },
     {
@@ -309,7 +306,7 @@
       "message": "パッケージ 'System.Private.Uri' 4.3.0 に既知の 高 重大度の脆弱性があります、https://github.com/advisories/GHSA-5f2m-466j-3848",
       "libraryId": "System.Private.Uri",
       "targetGraphs": [
-        "net8.0/linux-x64"
+        "net8.0/osx-arm64"
       ]
     },
     {
@@ -319,7 +316,7 @@
       "message": "パッケージ 'System.Private.Uri' 4.3.0 に既知の 中 重大度の脆弱性があります、https://github.com/advisories/GHSA-x5qj-9vmx-7g6g",
       "libraryId": "System.Private.Uri",
       "targetGraphs": [
-        "net8.0/linux-x64"
+        "net8.0/osx-arm64"
       ]
     },
     {
@@ -329,7 +326,7 @@
       "message": "パッケージ 'System.Private.Uri' 4.3.0 に既知の 高 重大度の脆弱性があります、https://github.com/advisories/GHSA-xhfc-gr8f-ffwc",
       "libraryId": "System.Private.Uri",
       "targetGraphs": [
-        "net8.0/linux-x64"
+        "net8.0/osx-arm64"
       ]
     },
     {
@@ -340,7 +337,7 @@
       "libraryId": "System.Text.Json",
       "targetGraphs": [
         "net8.0",
-        "net8.0/linux-x64"
+        "net8.0/osx-arm64"
       ]
     },
     {
@@ -351,7 +348,7 @@
       "libraryId": "System.Text.Json",
       "targetGraphs": [
         "net8.0",
-        "net8.0/linux-x64"
+        "net8.0/osx-arm64"
       ]
     }
   ]

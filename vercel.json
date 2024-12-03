@@ -2,18 +2,21 @@
   "version": 2,
   "builds": [
     {
-      "src": "first_asp_app.csproj",
-      "use": "@vercel/dotnet-builder@8.0"
+      "src": "**/*.csproj",
+      "use": "@vercel/static-build",
+      "config": {
+        "command": "dotnet publish -c Release -o publish",
+        "output": "publish"
+      }
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/api/$1"
+      "dest": "/publish/$1"
     }
   ],
   "env": {
-    "ASPNETCORE_ENVIRONMENT": "Production",
-    "DOTNET_VERSION": "8.0.0"
+    "ASPNETCORE_ENVIRONMENT": "Production"
   }
 }

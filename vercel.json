@@ -1,12 +1,14 @@
 {
   "version": 2,
+  "buildCommand": "dotnet publish -c Release -o publish",
   "builds": [
     {
-      "src": "**/*.csproj",
+      "src": "first_asp_app.csproj",
       "use": "@vercel/static-build",
       "config": {
-        "command": "dotnet publish -c Release -o publish",
-        "output": "publish"
+        "zeroConfig": true,
+        "framework": "dotnet",
+        "dotnetVersion": "8.0.100"
       }
     }
   ],
@@ -17,6 +19,7 @@
     }
   ],
   "env": {
-    "ASPNETCORE_ENVIRONMENT": "Production"
+    "ASPNETCORE_ENVIRONMENT": "Production",
+    "DOTNET_VERSION": "8.0.100"
   }
 }

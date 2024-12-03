@@ -2,19 +2,17 @@
   "version": 2,
   "builds": [
     {
-      "src": "first_asp_app.csproj",
-      "use": "@vercel/dotnet",
-      "config": { "framework": "net8.0" }
-    },
-    {
-      "src": "api/index.js",
-      "use": "@vercel/node"
+      "src": "**/*",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/api/index.js"
+      "dest": "/"
     }
-  ]
+  ],
+  "buildCommand": "dotnet publish -c Release -o .vercel/output/static",
+  "outputDirectory": ".vercel/output/static",
+  "framework": "dotnet"
 }

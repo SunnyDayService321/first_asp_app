@@ -2,7 +2,7 @@
   "Files": [
     {
       "Id": "/Users/a/projects/first_asp_app/obj/Debug/net8.0/osx-arm64/scopedcss/projectbundle/first_asp_app.bundle.scp.css",
-      "PackagePath": "staticwebassets/first_asp_app.nnmu6t2gfi.bundle.scp.css"
+      "PackagePath": "staticwebassets/first_asp_app.bundle.scp.css"
     },
     {
       "Id": "/Users/a/projects/first_asp_app/wwwroot/css/site.css",
@@ -267,10 +267,6 @@
     {
       "Id": "obj/Debug/net8.0/osx-arm64/staticwebassets/msbuild.buildTransitive.first_asp_app.props",
       "PackagePath": "buildTransitive\\first_asp_app.props"
-    },
-    {
-      "Id": "obj/Debug/net8.0/osx-arm64/staticwebassets/msbuild.first_asp_app.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
-      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
     },
     {
       "Id": "obj/Debug/net8.0/osx-arm64/staticwebassets/msbuild.first_asp_app.Microsoft.AspNetCore.StaticWebAssets.props",

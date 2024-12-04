@@ -2,14 +2,17 @@
   "version": 2,
   "builds": [
     {
-      "src": "publish/**/*",
-      "use": "@vercel/static"
+      "src": "build.sh",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "publish"
+      }
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/publish/$1"
+      "dest": "/"
     }
   ]
 }

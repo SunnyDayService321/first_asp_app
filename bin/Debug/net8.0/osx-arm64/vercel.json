@@ -1,21 +1,18 @@
 {
   "version": 2,
-  "installCommand": "curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --channel 8.0 && export PATH=\"$HOME/.dotnet:$PATH\"",
-  "buildCommand": "dotnet publish -c Release",
   "builds": [
     {
-      "src": "api/*.cs",
-      "use": "@vercel/node"
+      "src": "build.sh",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "publish"
+      }
     }
   ],
   "routes": [
     {
-      "src": "/api/(.*)",
-      "dest": "/api/$1"
-    },
-    {
       "src": "/(.*)",
-      "dest": "/api/index"
+      "dest": "/"
     }
   ]
 }

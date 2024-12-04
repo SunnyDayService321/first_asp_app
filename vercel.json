@@ -1,17 +1,21 @@
 {
   "version": 2,
-  "buildCommand": "dotnet publish -c Release -o .vercel/output/static",
-  "outputDirectory": ".vercel/output/static",
   "builds": [
     {
-      "src": "**/*.cs",
-      "use": "@vercel/node"
+      "src": "./first_asp_app.csproj",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "publish"
+      }
     }
   ],
   "routes": [
     {
+      "handle": "filesystem"
+    },
+    {
       "src": "/(.*)",
-      "dest": "/api/$1"
+      "dest": "/index.html"
     }
   ]
- }
+}

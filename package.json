@@ -2,7 +2,6 @@
   "name": "first_asp_app",
   "version": "1.0.0",
   "scripts": {
-    "build": "dotnet publish -c Release -o publish",
-    "start": "/usr/local/share/dotnet/dotnet publish/first_asp_app.dll"
+    "build": "dotnet publish -c Release -o publish"
   }
 }

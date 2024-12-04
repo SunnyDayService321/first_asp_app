@@ -2,7 +2,7 @@
   "version": 2,
   "builds": [
     {
-      "src": "./first_asp_app.csproj",
+      "src": "build.sh",
       "use": "@vercel/static-build",
       "config": {
         "distDir": "publish"
@@ -11,11 +11,8 @@
   ],
   "routes": [
     {
-      "handle": "filesystem"
-    },
-    {
       "src": "/(.*)",
-      "dest": "/index.html"
+      "dest": "/"
     }
   ]
 }

@@ -77,68 +77,170 @@ public class AccountController : Controller
         }
     }
 
+    // [HttpPost]
+    // public async Task<IActionResult> Login(string email, string password, string returnUrl = null)
+    // {
+    //     try
+    //     {
+    //          // メールアドレス桁数チェック（50桁以内）
+    //         if (string.IsNullOrEmpty(email) || email.Length > 50)
+    //         {
+    //             ModelState.AddModelError("email", "メールアドレスは50桁以内で入力してください。");
+    //             return View();
+    //         }
+
+    //         // パスワード桁数チェック（20桁以内）
+    //         if (string.IsNullOrEmpty(password) || password.Length > 20)
+    //         {
+    //             ModelState.AddModelError("password", "パスワードは20桁以内で入力してください。");
+    //             return View();
+    //         }
+
+    //          // nullチェックを追加
+    //         if (user.Email == null)
+    //         {
+    //             ModelState.AddModelError(nameof(user.Email), "メールアドレスは必須です。");
+    //             return View(user);
+    //         }
+
+    //         if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
+    //         {
+    //             ModelState.AddModelError("", "メールアドレスとパスワードを入力してください。");
+    //             return View();
+    //         }
+
+    //         var user = await _context.User.FirstOrDefaultAsync(u => u.Email == email);
+
+    //         if (user == null)
+    //         {
+    //             ModelState.AddModelError("", "正しいメールアドレスの形式で入力してください。");
+    //             return View();
+    //         }
+
+    //         if (!BCrypt.Net.BCrypt.Verify(password, user.PasswordHash))
+    //         {
+    //             _logger.LogWarning($"ログイン失敗: {email}");
+    //             ModelState.AddModelError("", "メールアドレスまたはパスワードが正しくありません。");
+    //             return View();
+    //         }
+
+    //         var claims = new List<Claim>
+    //         {
+    //             new Claim(ClaimTypes.Name, user.Email),
+    //             new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+    //             new Claim(ClaimTypes.Email, user.Email)
+    //         };
+
+    //         var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+    //         var principal = new ClaimsPrincipal(identity);
+
+    //         await HttpContext.SignInAsync(
+    //             CookieAuthenticationDefaults.AuthenticationScheme, 
+    //             principal,
+    //             new AuthenticationProperties
+    //             {
+    //                 IsPersistent = true, // Remember meの機能
+    //                 ExpiresUtc = DateTime.UtcNow.AddDays(30) // 30日間有効
+    //             }
+    //         );
+
+    //         _logger.LogInformation($"ログイン成功: {email}");
+
+    //         if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+    //         {
+    //             return Redirect(returnUrl);
+    //         }
+
+    //         return RedirectToAction("Index", "Home");
+    //     }
+    //     catch (Exception ex)
+    //     {
+    //         _logger.LogError($"ログイン処理中にエラーが発生しました: {ex.Message}");
+    //         ModelState.AddModelError("", "ログイン中にエラーが発生しました。もう一度お試しください。");
+    //         return View();
+    //     }
+    // }
     [HttpPost]
-    public async Task<IActionResult> Login(string email, string password, string returnUrl = null)
+public async Task<IActionResult> Login(string? email, string? password, string? returnUrl = null)
+{
+    try
     {
-        try
+        // メールアドレス桁数チェック（50桁以内）
+        if (string.IsNullOrEmpty(email) || email.Length > 50)
         {
-            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
-            {
-                ModelState.AddModelError("", "メールアドレスとパスワードを入力してください。");
-                return View();
-            }
-
-            var user = await _context.User.FirstOrDefaultAsync(u => u.Email == email);
-
-            if (user == null)
-            {
-                ModelState.AddModelError("", "メールアドレスまたはパスワードが正しくありません。");
-                return View();
-            }
-
-            if (!BCrypt.Net.BCrypt.Verify(password, user.PasswordHash))
-            {
-                _logger.LogWarning($"ログイン失敗: {email}");
-                ModelState.AddModelError("", "メールアドレスまたはパスワードが正しくありません。");
-                return View();
-            }
-
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.Name, user.Email),
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Email, user.Email)
-            };
-
-            var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-            var principal = new ClaimsPrincipal(identity);
-
-            await HttpContext.SignInAsync(
-                CookieAuthenticationDefaults.AuthenticationScheme, 
-                principal,
-                new AuthenticationProperties
-                {
-                    IsPersistent = true, // Remember meの機能
-                    ExpiresUtc = DateTime.UtcNow.AddDays(30) // 30日間有効
-                }
-            );
-
-            _logger.LogInformation($"ログイン成功: {email}");
-
-            if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
-            {
-                return Redirect(returnUrl);
-            }
-
-            return RedirectToAction("Index", "Home");
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError($"ログイン処理中にエラーが発生しました: {ex.Message}");
-            ModelState.AddModelError("", "ログイン中にエラーが発生しました。もう一度お試しください。");
+            ModelState.AddModelError(nameof(email), "メールアドレスは50桁以内で入力してください。");
             return View();
         }
+
+        // パスワード桁数チェック（20桁以内）
+        if (string.IsNullOrEmpty(password) || password.Length > 20)
+        {
+            ModelState.AddModelError(nameof(password), "パスワードは20桁以内で入力してください。");
+            return View();
+        }
+
+        if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
+        {
+            ModelState.AddModelError(string.Empty, "メールアドレスとパスワードを入力してください。");
+            return View();
+        }
+
+        // 先に変数を宣言
+        User? user = null;
+
+        // メールアドレスの存在チェック
+        user = await _context.User.FirstOrDefaultAsync(u => u.Email == email);
+
+        if (user == null)
+        {
+            ModelState.AddModelError(string.Empty, "正しいメールアドレスの形式で入力してください。");
+            return View();
+        }
+
+        // パスワード検証
+        if (!BCrypt.Net.BCrypt.Verify(password, user.PasswordHash))
+        {
+            _logger.LogWarning($"ログイン失敗: {email}");
+            ModelState.AddModelError(string.Empty, "メールアドレスまたはパスワードが正しくありません。");
+            return View();
+        }
+
+        var claims = new List<Claim>
+        {
+            new Claim(ClaimTypes.Name, user.Email),
+            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+            new Claim(ClaimTypes.Email, user.Email)
+        };
+
+        var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+        var principal = new ClaimsPrincipal(identity);
+
+        await HttpContext.SignInAsync(
+            CookieAuthenticationDefaults.AuthenticationScheme, 
+            principal,
+            new AuthenticationProperties
+            {
+                IsPersistent = true, // Remember meの機能
+                ExpiresUtc = DateTime.UtcNow.AddDays(30) // 30日間有効
+            }
+        );
+
+        _logger.LogInformation($"ログイン成功: {email}");
+
+        if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+        {
+            return Redirect(returnUrl);
+        }
+
+        return RedirectToAction("Index", "Home");
     }
+    catch (Exception ex)
+    {
+        _logger.LogError($"ログイン処理中にエラーが発生しました: {ex.Message}");
+        ModelState.AddModelError(string.Empty, "ログイン中にエラーが発生しました。もう一度お試しください。");
+        return View();
+    }
+}
 
     [HttpPost]
     public async Task<IActionResult> Logout()

@@ -42,6 +42,12 @@ public class AccountController : Controller
             {
                 return View(user);
             }
+            // user_id（メールアドレス）のチェック
+            if (string.IsNullOrEmpty(user.Email))
+            {
+                ModelState.AddModelError(nameof(user.Email), "メールアドレスとパスワードを入力してください。");
+                return View(user);
+            }
 
             // メールアドレスの重複チェック
             if (await _context.User.AnyAsync(u => u.Email == user.Email))
@@ -50,7 +56,7 @@ public class AccountController : Controller
                 return View(user);
             }
 
-            // パスワードの複雑さチェック
+            // パスワードの複雑さチェックÏ
             if (string.IsNullOrEmpty(user.PasswordHash) || user.PasswordHash.Length < 6)
             {
                 ModelState.AddModelError("PasswordHash", "パスワードは6文字以上必要です。");
@@ -85,7 +91,7 @@ public class AccountController : Controller
             // メールアドレス桁数チェック（50桁以内）
             if (string.IsNullOrEmpty(email) || email.Length > 50)
             {
-                ModelState.AddModelError(nameof(email), "メールアドレスとパスワードを入力してください");
+                ModelState.AddModelError(nameof(email), "メールアドレスは50桁以内で入力してください。");
                 return View();
             }
 

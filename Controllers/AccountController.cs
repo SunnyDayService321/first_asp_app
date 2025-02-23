@@ -19,7 +19,19 @@ public class AccountController : Controller
         _logger = logger;
     }
 
-
+    // IsValidEmail メソッドを AccountController クラス内に追加
+    private bool IsValidEmail(string email)
+    {
+        try
+        {
+            var addr = new System.Net.Mail.MailAddress(email);
+            return addr.Address == email;
+        }
+        catch
+        {
+            return false;
+        }
+    }
     [HttpGet]
     public IActionResult Login(string returnUrl = null)
     {
@@ -38,14 +50,59 @@ public class AccountController : Controller
     {
         try
         {
+            // モデル検証
             if (!ModelState.IsValid)
             {
                 return View(user);
             }
+
+            // 必須項目チェック
+            if (string.IsNullOrEmpty(user.Email) ||
+                string.IsNullOrEmpty(user.PasswordHash))
+            {
+                ModelState.AddModelError("", "リクエストの内容が不正です。");
+                return View(user);
+            }
+
             // user_id（メールアドレス）のチェック
             if (string.IsNullOrEmpty(user.Email))
             {
                 ModelState.AddModelError(nameof(user.Email), "メールアドレスとパスワードを入力してください。");
+                return View(user);
+            }
+
+            // メールアドレスの入力チェック
+            if (string.IsNullOrEmpty(user.Email))
+            {
+                ModelState.AddModelError("Email", "メールアドレスとパスワードを入力してください。");
+                return View(user);
+            }
+
+            // メールアドレス形式チェック
+            if (!IsValidEmail(user.Email))
+            {
+                ModelState.AddModelError("Email", "正しいメールアドレスの形式で入力してください。");
+                return View(user);
+            }
+
+            // メールアドレス桁数チェック
+            if (user.Email.Length > 50)
+            {
+                ModelState.AddModelError("Email", "メールアドレスは50桁以内で入力してください。");
+                return View(user);
+            }
+
+            // パスワードの必須チェック
+            if (string.IsNullOrEmpty(user.PasswordHash))
+            {
+                ModelState.AddModelError("PasswordHash", "パスワードは必須です。");
+                return View(user);
+            }
+
+            // パスワードの桁数チェック
+            if (user.PasswordHash.Length > 20)
+            {
+                ModelState.AddModelError("PasswordHash", "パスワードは20桁以内で入力してください。");
                 return View(user);
             }
 
@@ -63,9 +120,11 @@ public class AccountController : Controller
                 return View(user);
             }
 
+            // パスワードのハッシュ化とユーザー情報の設定
             user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(user.PasswordHash);
             user.CreatedAt = DateTime.UtcNow;
 
+            // データベースに登録
             _context.User.Add(user);
             await _context.SaveChangesAsync();
 

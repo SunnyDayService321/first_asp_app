@@ -92,6 +92,20 @@ public class AccountController : Controller
                 return View(user);
             }
 
+            // 名前の入力チェック
+            if (string.IsNullOrEmpty(user.Name))
+            {
+                ModelState.AddModelError("Name", "ユーザー名は必須です。");
+                return View(user);
+            }
+
+            // 名前の桁数チェック（50桁以内）
+            if (user.Name.Length > 50)
+            {
+                ModelState.AddModelError("Name", "ユーザー名は50桁以内で入力してください。");
+                return View(user);
+            }
+
             // パスワードの必須チェック
             if (string.IsNullOrEmpty(user.PasswordHash))
             {

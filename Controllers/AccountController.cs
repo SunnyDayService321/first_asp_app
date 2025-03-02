@@ -150,7 +150,7 @@ public class AccountController : Controller
             // メールアドレスの入力チェック
             if (string.IsNullOrEmpty(email))
             {
-                ModelState.AddModelError(nameof(email), "メールアドレスとパスワードを入力してください。");
+                ModelState.AddModelError(nameof(email), "メールアドレスを入力してください。");
                 return View();
             }
 

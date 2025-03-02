@@ -147,8 +147,15 @@ public class AccountController : Controller
     {
         try
         {
+            // メールアドレスの入力チェック
+            if (string.IsNullOrEmpty(email))
+            {
+                ModelState.AddModelError(nameof(email), "メールアドレスとパスワードを入力してください。");
+                return View();
+            }
+
             // メールアドレス桁数チェック（50桁以内）
-            if (string.IsNullOrEmpty(email) || email.Length > 50)
+            if (email.Length > 50)
             {
                 ModelState.AddModelError(nameof(email), "メールアドレスは50桁以内で入力してください。");
                 return View();

@@ -18,8 +18,37 @@ public class ProductController : Controller
     // 商品一覧表示
     public async Task<IActionResult> Index()
     {
-        var products = await _context.Product.ToListAsync();
-        return View(products);
+        try
+        {
+            // 全商品を取得
+            var products = await _context.Product.ToListAsync();
+
+            // 商品が存在しない場合
+            if (products == null || !products.Any())
+            {
+                ViewBag.ErrorMessage = "表示可能な商品がありません。";
+                return View(new List<Product>());
+            }
+
+            // 在庫切れ商品を確認
+            var inStockProducts = products.Where(p => p.StockQuantity > 0).ToList();
+
+            // 全商品が在庫切れの場合
+            if (!inStockProducts.Any())
+            {
+                ViewBag.ErrorMessage = "この商品は在庫切れです。";
+                return View(products);
+            }
+
+            return View(products);
+        }
+            catch (Exception ex)
+        {
+            Console.WriteLine($"エラー: {ex.Message}");
+            ViewBag.ErrorMessage = "商品情報の取得中にエラーが発生しました。";
+            return View(new List<Product>());
+        }
+
     }
 
     // 商品詳細表示

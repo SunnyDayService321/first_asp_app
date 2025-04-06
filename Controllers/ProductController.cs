@@ -5,7 +5,6 @@ using first_asp_app.Data;
 using System.Security.Claims;
 
 namespace first_asp_app.Controllers;
-
 public class ProductController : Controller
 {
     private readonly MvcMovieContext _context;
@@ -54,19 +53,78 @@ public class ProductController : Controller
     // 商品詳細表示
     public async Task<IActionResult> Details(int? id)
     {
-        if (id == null)
+        // if (id == null)
+        // {
+        //     return NotFound();
+        // }
+
+        // var product = await _context.Product.FirstOrDefaultAsync(m => m.Id == id);
+        // if (product == null)
+        // {
+        //     return NotFound();
+        // }
+
+        // return View(product);
+        // 商品詳細表示
+
+    // 2.1.1 バリデーション処理
+        if (id == null || id <= 0)
         {
-            return NotFound();
+            // ログ出力
+            LogError("リクエストの内容が不正です。", id);
+            return BadRequest("リクエストの内容が不正です。");
         }
 
-        var product = await _context.Product.FirstOrDefaultAsync(m => m.Id == id);
-        if (product == null)
+        try
         {
-            return NotFound();
-        }
+            // 2.2.1 データ抽出
+            var products = await _context.Product
+                .Where(p => p.Id == id)
+                .ToListAsync();
 
-        return View(product);
+            // 2.2.2 結果が0件の場合
+            if (!products.Any())
+            {
+                // ログ出力
+                LogError("idに対して商品データがみつからなかった。", id);
+                ViewBag.ErrorMessage = "商品情報が見つかりませんでした。";
+                return View("Error");
+            }
+
+            // 2.2.3 結果が2件以上の場合
+            if (products.Count > 1)
+            {
+                // ログ出力
+                LogError("idに対して商品データが複数件抽出された。", id);
+                ViewBag.ErrorMessage = "商品情報の取得に失敗しました。";
+                return View("Error");
+            }
+
+            // 2.2.4 結果が1件の場合、データをビューに渡す
+            var product = products.First();
+            LogSuccess("商品詳細取得成功", id);
+            return View(product);
+        }
+        catch (Exception ex)
+        {
+            // 例外発生時
+            LogError($"例外が発生しました: {ex.Message}", id);
+            ViewBag.ErrorMessage = "商品情報の取得に失敗しました。";
+            return View("Error");
+        }
     }
+
+    // ログ出力メソッド
+    private void LogSuccess(string message, int? id)
+    {
+        Console.WriteLine($"成功 - {DateTime.Now} - ID:{id} - {message}");
+    }
+
+    private void LogError(string message, int? id)
+    {
+        Console.WriteLine($"失敗 - {DateTime.Now} - ID:{id} - {message}");
+    }
+
 
     // 購入処理
     [HttpPost]

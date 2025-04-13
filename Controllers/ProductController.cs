@@ -167,14 +167,49 @@ public class ProductController : Controller
     }
 
    // 購入画面表示（詳細な購入情報入力用）
-   public async Task<IActionResult> Purchase(int id)
+   public async Task<IActionResult> Purchase(int? id)
    {
-       var product = await _context.Product.FindAsync(id);
-       if (product == null)
-       {
-           return NotFound();
-       }
-       return View(product);
+    //    var product = await _context.Product.FindAsync(id);
+    //    if (product == null)
+    //    {
+    //        return NotFound();
+    //    }
+    //    return View(product);
+    // 購入画面表示（詳細な購入情報入力用）
+
+        // 2.1.1 バリデーション処理
+        if (id == null || id <= 0)
+        {
+            LogError("商品IDは数値で入力してください", id);
+            ViewBag.ErrorMessage = "商品IDは数値で入力してください";
+            return View("Error");
+        }
+
+        try
+        {
+            // 2.2.1 データ抽出 - 仕様に基づく条件
+            var product = await _context.Product
+                .Where(p => p.Id == id && p.StockQuantity > 0)
+                .FirstOrDefaultAsync();
+
+            // 2.2.2 結果が0件の場合
+            if (product == null)
+            {
+                LogError("指定された商品は購入できません", id);
+                ViewBag.ErrorMessage = "指定された商品は購入できません";
+                return View("Error");
+            }
+
+            // 2.3.1 取得結果がある場合、商品購入画面情報を返却
+            LogSuccess("商品購入画面表示", id);
+            return View(product);
+        }
+        catch (Exception ex)
+        {
+            LogError($"例外が発生しました: {ex.Message}", id);
+            ViewBag.ErrorMessage = "商品情報の取得に失敗しました";
+            return View("Error");
+        }
    }
    // 購入確定処理（配送先・支払方法込み）
    [HttpPost]

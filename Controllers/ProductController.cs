@@ -212,47 +212,80 @@ public class ProductController : Controller
         }
    }
    // 購入確定処理（配送先・支払方法込み）
-   [HttpPost]
-   public async Task<IActionResult> ConfirmPurchase(int id, int quantity, string address, string paymentMethod)
-   {
-       // 商品の存在と在庫確認
-       var product = await _context.Product.FindAsync(id);
-       if (product == null || product.StockQuantity < quantity)
-       {
-           return BadRequest("商品が存在しないか、在庫が不足しています。");
-       }
+    [HttpPost]
+    public async Task<IActionResult> ConfirmPurchase(int id, int quantity, string address, string paymentMethod)
+    {
+        // バリデーション処理
+        if (id <= 0)
+        {
+            ModelState.AddModelError("id", "不正な商品IDです");
+            return View("Error");
+        }
 
-       // ログインユーザーのID取得
-       var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "0");
+        if (quantity <= 0)
+        {
+            ModelState.AddModelError("quantity", "購入数量は1以上を指定してください");
+            return View("Error");
+        }
 
-       // 注文データの作成
-       var order = new Order
-       {
-           UserId = userId,
-           OrderDate = DateTime.Now,
-           TotalAmount = product.Price * quantity + 500  // 送料込みの金額
-       };
-       // 注文詳細データの作成
-       var orderItem = new OrderItem
-       {
-           Order = order,
-           ProductId = id,
-           Quantity = quantity,
-           Price = product.Price
-       };
+        if (string.IsNullOrWhiteSpace(address))
+        {
+            ModelState.AddModelError("address", "配送先住所を入力してください");
+            return View("Error");
+        }
 
-       // 注文に商品を追加
-       order.OrderItems.Add(orderItem);
+        if (address.Length > 200)
+        {
+            ModelState.AddModelError("address", "配送先住所は200文字以内で入力してください");
+            return View("Error");
+        }
 
-       // 在庫数の更新
-       product.StockQuantity -= quantity;
+        if (string.IsNullOrWhiteSpace(paymentMethod))
+        {
+            ModelState.AddModelError("paymentMethod", "支払方法を入力してください");
+            return View("Error");
+        }
 
-       // データベースに注文を保存
-       _context.Order.Add(order);
-       await _context.SaveChangesAsync();
+        // 商品の存在と在庫確認
+        var product = await _context.Product.FindAsync(id);
+        if (product == null || product.StockQuantity < quantity)
+        {
+            ModelState.AddModelError("", "在庫数が不足しています");
+            return View("Error");
+        }
 
-       // 注文完了画面へリダイレクト
-       return RedirectToAction(nameof(OrderComplete), new { id = order.Id });
+        // ログインユーザーのID取得
+        var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "0");
+
+        // 注文データの作成
+        var order = new Order
+        {
+            UserId = userId,
+            OrderDate = DateTime.Now,
+            TotalAmount = product.Price * quantity + 500  // 送料込みの金額
+        };
+
+        // 注文詳細データの作成
+        var orderItem = new OrderItem
+        {
+            Order = order,
+            ProductId = id,
+            Quantity = quantity,
+            Price = product.Price
+        };
+
+        // 注文に商品を追加
+        order.OrderItems.Add(orderItem);
+
+        // 在庫数の更新
+        product.StockQuantity -= quantity;
+
+        // データベースに注文を保存
+        _context.Order.Add(order);
+        await _context.SaveChangesAsync();
+
+        // 注文完了画面へリダイレクト
+        return RedirectToAction(nameof(OrderComplete), new { id = order.Id });
     }
     // 注文完了画面表示
     public IActionResult OrderComplete(int id)

@@ -20,4 +20,8 @@ public class Product
 
     [Display(Name = "在庫数")]
     public int StockQuantity { get; set; }
+
+    // DeleteFlgプロパティを追加
+    [Display(Name = "削除フラグ")]
+    public int DeleteFlg { get; set; } = 0; // デフォルト値は0（有効）
 }

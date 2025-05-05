@@ -1,0 +1,24 @@
+@model first_asp_app.Models.ErrorViewModel
+@{
+    ViewData["Title"] = "エラー";
+}
+
+<div class="container mt-4">
+    <div class="alert alert-danger">
+        <h1 class="text-danger">エラーが発生しました</h1>
+        <p>申し訳ありません。予期せぬエラーが発生しました。</p>
+
+        @if (Model.ShowRequestId)
+        {
+            <p>
+                <strong>リクエストID:</strong> <code>@Model.RequestId</code>
+            </p>
+        }
+    </div>
+
+    <div class="text-center">
+        <a asp-controller="Product" asp-action="Index" class="btn btn-primary">
+            商品一覧に戻る
+        </a>
+    </div>
+</div>

@@ -1,4 +1,4 @@
-@model IEnumerable<first_asp_app.Models.Product>
+@* @model IEnumerable<first_asp_app.Models.Product>
 
 @{
     ViewData["Title"] = "商品一覧";
@@ -19,6 +19,59 @@
                     <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">詳細</a>
                 </div>
             </div>
+        </div>
+    }
+</div> *@
+
+@model IEnumerable<first_asp_app.Models.Product>
+
+@{
+    ViewData["Title"] = "商品一覧";
+}
+
+<div class="container mt-4">
+    <h1>商品一覧</h1>
+
+    @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+    {
+        <div class="alert alert-warning">
+            @ViewBag.ErrorMessage
+        </div>
+    }
+    
+    @if (Model != null && Model.Any())
+    {
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-4 mb-4">
+                    <div class="card @(item.StockQuantity <= 0 ? "border-danger" : "")">
+                        <div class="card-body">
+                            <h5 class="card-title">@item.Name</h5>
+                            <p class="card-text">@item.Description</p>
+                            <p class="card-text">価格: ¥@item.Price.ToString("N0")</p>
+                            <p class="card-text @(item.StockQuantity <= 0 ? "text-danger" : "")">
+                                在庫: @item.StockQuantity 個
+                                @if (item.StockQuantity <= 0)
+                                {
+                                    <span class="badge bg-danger">在庫切れ</span>
+                                }
+                            </p>
+                            <a asp-action="Details" 
+                               asp-route-id="@item.Id" 
+                               class="btn @(item.StockQuantity <= 0 ? "btn-secondary disabled" : "btn-primary")">
+                                @(item.StockQuantity <= 0 ? "在庫切れ" : "詳細")
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info">
+            表示可能な商品がありません。
         </div>
     }
 </div>

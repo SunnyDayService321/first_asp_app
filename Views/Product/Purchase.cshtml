@@ -117,16 +117,16 @@
                         <div class="col-md-6">
                             <form asp-action="ConfirmPurchase" method="post">
                                 <input type="hidden" name="id" value="@Model.Id" />
-                                
+
                                 <div class="form-group">
                                     <label for="quantity">購入数量</label>
-                                    <input type="number" name="quantity" class="form-control" min="1" max="@Model.StockQuantity" value="1" required />
+                                    <input type="number" name="quantity" class="form-control" min="1" max="@Model.StockQuantity" value="1" />
                                     <small class="form-text text-muted">在庫数: @Model.StockQuantity</small>
                                 </div>
 
                                 <div class="form-group mt-3">
                                     <label for="address">お届け先住所</label>
-                                    <textarea name="address" class="form-control" rows="3" required></textarea>
+                                    <textarea name="address" class="form-control" rows="3" ></textarea>
                                 </div>
 
                                 <div class="form-group mt-3">

@@ -296,14 +296,6 @@ public class ProductController : Controller
     public async Task<IActionResult> ConfirmPurchase(int id, int quantity, string address, string paymentMethod)
     {
 
-         // 全てのModelStateエラーをコンソールに出力
-        foreach (var modelState in ModelState.Values)
-        {
-            foreach (var error in modelState.Errors)
-            {
-                Console.WriteLine($"ModelState Error: {error.ErrorMessage}");
-            }
-        }
         // 商品の存在確認
         var product = await _context.Product.FindAsync(id);
 
@@ -397,9 +389,9 @@ public class ProductController : Controller
 
     public IActionResult Error()
     {
-        return View(new ErrorViewModel 
-        { 
-            RequestId = HttpContext.TraceIdentifier 
+        return View(new ErrorViewModel
+        {
+            RequestId = HttpContext.TraceIdentifier
         });
     }
 }

@@ -79,4 +79,11 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Product}/{action=Index}/{id?}");
 
+    // Cart用のルーティングを追加
+app.MapControllerRoute(
+    name: "cart",
+    pattern: "Cart/{action=Index}/{id?}",
+    defaults: new { controller = "Cart" }
+);
+
 app.Run();

@@ -1,85 +1,3 @@
-@* @model first_asp_app.Models.Product
-
-@{
-    ViewData["Title"] = "商品購入";
-}
-
-<div class="container mt-4">
-    <div class="row">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">注文内容の確認</h5>
-                    
-                    <div class="row mb-4">
-                        <div class="col-md-6">
-                            <h6>商品情報</h6>
-                            <dl>
-                                <dt>商品名</dt>
-                                <dd>@Model.Name</dd>
-                                <dt>価格</dt>
-                                <dd>¥@Model.Price.ToString("N0")</dd>
-                            </dl>
-                        </div>
-                        <div class="col-md-6">
-                            <form asp-action="ConfirmPurchase" method="post">
-                                <input type="hidden" name="id" value="@Model.Id" />
-                                
-                                <div class="form-group">
-                                    <label for="quantity">購入数量</label>
-                                    <input type="number" name="quantity" class="form-control" min="1" max="@Model.StockQuantity" value="1" required />
-                                    <small class="form-text text-muted">在庫数: @Model.StockQuantity</small>
-                                </div>
-
-                                <div class="form-group mt-3">
-                                    <label for="address">お届け先住所</label>
-                                    <textarea name="address" class="form-control" rows="3" required></textarea>
-                                </div>
-
-                                <div class="form-group mt-3">
-                                    <label for="paymentMethod">支払い方法</label>
-                                    <select name="paymentMethod" class="form-control" required>
-                                        <option value="">選択してください</option>
-                                        <option value="credit">クレジットカード</option>
-                                        <option value="bank">銀行振込</option>
-                                        <option value="convenience">コンビニ支払い</option>
-                                    </select>
-                                </div>
-
-                                <div class="mt-4">
-                                    <button type="submit" class="btn btn-primary">注文を確定する</button>
-                                    <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-secondary">戻る</a>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">注文金額</h5>
-                    <div class="d-flex justify-content-between mb-2">
-                        <span>商品価格:</span>
-                        <span>¥@Model.Price.ToString("N0")</span>
-                    </div>
-                    <div class="d-flex justify-content-between mb-2">
-                        <span>送料:</span>
-                        <span>¥500</span>
-                    </div>
-                    <hr/>
-                    <div class="d-flex justify-content-between">
-                        <strong>合計:</strong>
-                        <strong>¥@((Model.Price + 500).ToString("N0"))</strong>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> *@
-
 @model first_asp_app.Models.Product
 
 @{
@@ -93,7 +11,7 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">注文内容の確認</h5>
-                    
+
                     @if (errorMessages != null && errorMessages.Any())
                     {
                         <div class="alert alert-danger mt-3">
@@ -120,7 +38,7 @@
 
                                 <div class="form-group">
                                     <label for="quantity">購入数量</label>
-                                    <input type="number" name="quantity" class="form-control" min="1" max="@Model.StockQuantity" value="1" />
+                                    <input type="number" name="quantity" class="form-control" max="@Model.StockQuantity" value="1" />
                                     <small class="form-text text-muted">在庫数: @Model.StockQuantity</small>
                                 </div>
 

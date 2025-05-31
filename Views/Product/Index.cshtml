@@ -1,5 +1,3 @@
-
-
 @model IEnumerable<first_asp_app.Models.Product>
 
 @{
@@ -39,7 +37,7 @@
             @ViewBag.ErrorMessage
         </div>
     }
-    
+
     @if (Model != null && Model.Any())
     {
         <div class="row">
@@ -59,18 +57,18 @@
                                 }
                             </p>
                             <div class="d-flex gap-2">
-                                <a asp-action="Details" 
-                                   asp-route-id="@item.Id" 
+                                <a asp-action="Details"
+                                   asp-route-id="@item.Id"
                                    class="btn @(item.StockQuantity <= 0 ? "btn-secondary disabled" : "btn-primary")">
                                     @(item.StockQuantity <= 0 ? "在庫切れ" : "詳細")
                                 </a>
-                                
+
                                 @if (item.StockQuantity > 0 && User.Identity.IsAuthenticated)
                                 {
                                     <form asp-action="AddToCart" method="post" style="display: inline;">
                                         <input type="hidden" name="productId" value="@item.Id" />
                                         <input type="hidden" name="quantity" value="1" />
-                                        <button type="submit" class="btn btn-success btn-sm">
+                                        <button type="submit" class="btn btn-success">
                                             カートに追加
                                         </button>
                                     </form>

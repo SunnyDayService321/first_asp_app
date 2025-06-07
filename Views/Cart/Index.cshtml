@@ -79,7 +79,7 @@
                     </tbody>
                 </table>
             </div>
-            
+
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-header">
@@ -99,11 +99,11 @@
                             <span>合計:</span>
                             <span>¥@((totalAmount + 500).ToString("N0"))</span>
                         </div>
-                        
+
                         <div class="mt-3">
-                            <button class="btn btn-success btn-lg w-100 mb-2">注文手続きへ</button>
+                            <a href="@Url.Action("Checkout")" class="btn btn-success btn-lg w-100 mb-2">一括注文手続きへ</a>
                             <form asp-action="ClearCart" method="post">
-                                <button type="submit" class="btn btn-outline-danger w-100" 
+                                <button type="submit" class="btn btn-outline-danger w-100"
                                         onclick="return confirm('カートをクリアしますか？全ての商品が削除されます。')">
                                     カートをクリア
                                 </button>
@@ -111,7 +111,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="mt-3">
                     <a href="@Url.Action("Index", "Product")" class="btn btn-outline-primary">
                         ← 買い物を続ける

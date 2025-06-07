@@ -1,0 +1,40 @@
+@model int
+
+@{
+    ViewData["Title"] = "注文完了";
+}
+
+<div class="container mt-4">
+    <div class="text-center">
+        <div class="alert alert-success" role="alert">
+            <h1 class="alert-heading">
+                <i class="fas fa-check-circle text-success"></i> 注文が完了しました！
+            </h1>
+            <hr>
+            <p class="mb-0">
+                注文番号: <strong>#@Model</strong><br>
+                ご注文ありがとうございました。商品の準備が整い次第、配送いたします。
+            </p>
+        </div>
+
+        <div class="card mx-auto" style="max-width: 400px;">
+            <div class="card-body">
+                <h5 class="card-title">次の手順</h5>
+                <ul class="list-unstyled">
+                    <li><i class="fas fa-envelope text-primary"></i> 注文確認メールをお送りします</li>
+                    <li><i class="fas fa-box text-warning"></i> 商品の準備（1-2営業日）</li>
+                    <li><i class="fas fa-truck text-info"></i> 配送開始（2-3営業日でお届け）</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <a href="@Url.Action("Index", "Product")" class="btn btn-primary btn-lg me-2">
+                <i class="fas fa-shopping-bag"></i> 買い物を続ける
+            </a>
+            <a href="@Url.Action("Index", "Cart")" class="btn btn-outline-secondary btn-lg">
+                <i class="fas fa-shopping-cart"></i> カートを確認
+            </a>
+        </div>
+    </div>
+</div>

@@ -235,7 +235,7 @@ public class AccountController : Controller
                 return Redirect(returnUrl);
             }
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Product");
         }
         catch (Exception ex)
         {
@@ -252,12 +252,12 @@ public class AccountController : Controller
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             _logger.LogInformation($"ユーザーがログアウトしました: {User.Identity?.Name}");
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Product");
         }
         catch (Exception ex)
         {
             _logger.LogError($"ログアウト中にエラーが発生しました: {ex.Message}");
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Product");
         }
     }
 

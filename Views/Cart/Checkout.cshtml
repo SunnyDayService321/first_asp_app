@@ -1,0 +1,111 @@
+@model IEnumerable<first_asp_app.Models.CartItem>
+
+@{
+    ViewData["Title"] = "注文手続き";
+}
+
+<div class="container mt-4">
+    <h1>注文手続き</h1>
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @TempData["ErrorMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h3>注文内容の確認</h3>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>商品名</th>
+                                <th>価格</th>
+                                <th>数量</th>
+                                <th>小計</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                decimal totalAmount = 0;
+                            }
+                            @foreach (var item in Model)
+                            {
+                                var subtotal = item.Product.Price * item.Quantity;
+                                totalAmount += subtotal;
+                                <tr>
+                                    <td>
+                                        <strong>@item.Product.Name</strong><br>
+                                        <small class="text-muted">@item.Product.Description</small>
+                                    </td>
+                                    <td>¥@item.Product.Price.ToString("N0")</td>
+                                    <td>@item.Quantity</td>
+                                    <td>¥@subtotal.ToString("N0")</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card mt-3">
+                <div class="card-header">
+                    <h3>配送先情報</h3>
+                </div>
+                <div class="card-body">
+                    <form method="post" action="@Url.Action("ConfirmOrder")">
+                        <div class="mb-3">
+                            <label for="address" class="form-label">配送先住所 <span class="text-danger">*</span></label>
+                            <textarea id="address" name="address" class="form-control" rows="3" 
+                                      placeholder="配送先の住所を入力してください"></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="paymentMethod" class="form-label">支払方法 <span class="text-danger">*</span></label>
+                            <select id="paymentMethod" name="paymentMethod" class="form-select">
+                                <option value="">支払方法を選択してください</option>
+                                <option value="credit">クレジットカード</option>
+                                <option value="bank">銀行振込</option>
+                                <option value="cod">代金引換</option>
+                            </select>
+                        </div>
+
+                        <div class="d-flex gap-2">
+                            <a href="@Url.Action("Index")" class="btn btn-outline-secondary">カートに戻る</a>
+                            <button type="submit" class="btn btn-success btn-lg">注文を確定する</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5>注文概要</h5>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>商品合計:</span>
+                        <span>¥@totalAmount.ToString("N0")</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>送料:</span>
+                        <span>¥500</span>
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-between fw-bold">
+                        <span>合計:</span>
+                        <span>¥@((totalAmount + 500).ToString("N0"))</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

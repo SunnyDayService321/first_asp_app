@@ -585,3 +585,10 @@
 /Users/a/projects/first_asp_app/obj/Debug/net8.0/osx-arm64/first_asp_app.pdb
 /Users/a/projects/first_asp_app/obj/Debug/net8.0/osx-arm64/first_asp_app.genruntimeconfig.cache
 /Users/a/projects/first_asp_app/obj/Debug/net8.0/osx-arm64/ref/first_asp_app.dll
+/Users/a/projects/first_asp_app/bin/Debug/net8.0/osx-arm64/publish/global.json
+/Users/a/projects/first_asp_app/bin/Debug/net8.0/osx-arm64/publish/publish/package.json
+/Users/a/projects/first_asp_app/bin/Debug/net8.0/osx-arm64/publish/publish/publish/appsettings.Development.json
+/Users/a/projects/first_asp_app/bin/Debug/net8.0/osx-arm64/publish/publish/publish/appsettings.json
+/Users/a/projects/first_asp_app/bin/Debug/net8.0/osx-arm64/publish/publish/publish/first_asp_app.runtimeconfig.json
+/Users/a/projects/first_asp_app/bin/Debug/net8.0/osx-arm64/publish/publish/publish/first_asp_app.staticwebassets.endpoints.json
+/Users/a/projects/first_asp_app/bin/Debug/net8.0/osx-arm64/publish/publish/publish/vercel.json

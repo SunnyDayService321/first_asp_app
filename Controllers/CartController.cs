@@ -154,102 +154,123 @@ public class CartController : Controller
         return View(id);
     }
 
-    // 注文確定処理
+    // 注文確定処理（重要：トランザクション必須）
     [HttpPost]
     public async Task<IActionResult> ConfirmOrder(string address, string paymentMethod)
     {
+        // バリデーション処理（トランザクション外）
+        // 入力値のバリデーション
+        if (string.IsNullOrWhiteSpace(address))
+        {
+            TempData["ErrorMessage"] = "配送先住所を入力してください";
+            return RedirectToAction("Checkout");
+        }
+
+        if (string.IsNullOrWhiteSpace(paymentMethod))
+        {
+            TempData["ErrorMessage"] = "支払方法を選択してください";
+            return RedirectToAction("Checkout");
+        }
+
+        var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "0");
+
+        // カート内の商品を取得
+        var cartItems = await _context.CartItems
+            .Include(c => c.Product)
+            .Where(c => c.UserId == userId)
+            .ToListAsync();
+
+        if (!cartItems.Any())
+        {
+            TempData["ErrorMessage"] = "カートに商品がありません";
+            return RedirectToAction("Index");
+        }
+
+        // 最新の在庫情報を取得
+        var productIds = cartItems.Select(c => c.ProductId).ToList();
+        var products = await _context.Product
+            .Where(p => productIds.Contains(p.Id))
+            .ToListAsync();
+
+        // 在庫チェックと合計金額計算
+        decimal totalAmount = 0;
+        foreach (var item in cartItems)
+        {
+            var product = products.FirstOrDefault(p => p.Id == item.ProductId);
+            if (product == null)
+            {
+                TempData["ErrorMessage"] = "商品情報が見つかりません";
+                return RedirectToAction("Checkout");
+            }
+
+            // 在庫チェック
+            if (product.StockQuantity < item.Quantity)
+            {
+                TempData["ErrorMessage"] = $"{product.Name}の在庫が不足しています（現在の在庫: {product.StockQuantity}個）";
+                return RedirectToAction("Checkout");
+            }
+
+            totalAmount += product.Price * item.Quantity;
+        }
+
+        // データベース更新処理（トランザクション内）
         using (var transaction = _context.Database.BeginTransaction())
         {
             try
             {
-                // バリデーション
-                if (string.IsNullOrWhiteSpace(address))
-                {
-                    TempData["ErrorMessage"] = "配送先住所を入力してください";
-                    return RedirectToAction("Checkout");
-                }
-
-                if (string.IsNullOrWhiteSpace(paymentMethod))
-                {
-                    TempData["ErrorMessage"] = "支払方法を選択してください";
-                    return RedirectToAction("Checkout");
-                }
-
-                var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "0");
-
-                // カート内の商品を取得
-                var cartItems = await _context.CartItems
-                    .Include(c => c.Product)
-                    .Where(c => c.UserId == userId)
-                    .ToListAsync();
-
-                if (!cartItems.Any())
-                {
-                    TempData["ErrorMessage"] = "カートに商品がありません";
-                    return RedirectToAction("Index");
-                }
-
-                // 在庫チェックと合計金額計算
-                decimal totalAmount = 0;
-                foreach (var item in cartItems)
-                {
-                    if (item.Product.StockQuantity < item.Quantity)
-                    {
-                        TempData["ErrorMessage"] = $"{item.Product.Name}の在庫が不足しています";
-                        return RedirectToAction("Checkout");
-                    }
-                    totalAmount += item.Product.Price * item.Quantity;
-                }
-
                 // 注文作成
                 var order = new Order
                 {
                     UserId = userId,
                     OrderDate = DateTime.Now,
-                    TotalAmount = totalAmount + 500 // 送料込み
+                    TotalAmount = totalAmount + 500
                 };
 
                 _context.Order.Add(order);
-                await _context.SaveChangesAsync();
+                _context.SaveChanges(); // Orderを保存してIDを取得
 
                 // 注文詳細作成と在庫更新
                 foreach (var item in cartItems)
                 {
+                    var product = products.FirstOrDefault(p => p.Id == item.ProductId);
+
+                    // 注文詳細作成
                     var orderItem = new OrderItem
                     {
                         OrderId = order.Id,
                         ProductId = item.ProductId,
                         Quantity = item.Quantity,
-                        Price = item.Product.Price
+                        Price = product.Price
                     };
 
                     _context.OrderItem.Add(orderItem);
 
                     // 在庫更新
-                    item.Product.StockQuantity -= item.Quantity;
-                    _context.Update(item.Product);
+                    product.StockQuantity -= item.Quantity;
+                    _context.Update(product);
                 }
 
                 // カートをクリア
                 _context.CartItems.RemoveRange(cartItems);
 
-                await _context.SaveChangesAsync();
+                // 全ての変更を保存
+                _context.SaveChanges();
+
                 // トランザクションをコミット
                 transaction.Commit();
 
                 TempData["SuccessMessage"] = "注文が完了しました";
-                _logger.LogInformation($"注文ID:{order.Id}が完了");
+                _logger.LogInformation($"注文ID:{order.Id}が完了 - ユーザーID:{userId}");
 
                 return RedirectToAction("OrderComplete", new { id = order.Id });
             }
             catch (Exception ex)
             {
-                // エラーが発生した場合はロールバック
+                // エラー時はロールバック
                 transaction.Rollback();
-                throw;
-                // _logger.LogError($"注文確定でエラー: {ex.Message}");
-                // TempData["ErrorMessage"] = "注文の処理に失敗しました";
-                // return RedirectToAction("Checkout");
+                _logger.LogError($"データベース更新でエラー: {ex.Message}");
+                TempData["ErrorMessage"] = "注文の処理に失敗しました。もう一度お試しください。";
+                return RedirectToAction("Checkout");
             }
         }
     }
@@ -292,11 +313,5 @@ public class CartController : Controller
             TempData["ErrorMessage"] = "注文手続きに失敗しました";
             return RedirectToAction("Index");
         }
-    }
-
-    // デバッグ用のアクション
-    public IActionResult Debug()
-    {
-        return Content("Cart Controller is working");
     }
 }

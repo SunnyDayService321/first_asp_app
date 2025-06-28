@@ -1,0 +1,100 @@
+@model IEnumerable<first_asp_app.Models.Order>
+
+@{
+    ViewData["Title"] = "注文履歴";
+}
+
+<div class="container mt-4">
+    <h1>注文履歴</h1>
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @TempData["ErrorMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info">
+            <h4>注文履歴がありません</h4>
+            <p>まだ注文をされていないようです。</p>
+            <a href="@Url.Action("Index", "Product")" class="btn btn-primary">
+                <i class="fas fa-shopping-bag"></i> 商品を見る
+            </a>
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-12">
+                <p class="text-muted">全 @Model.Count() 件の注文履歴</p>
+
+                @foreach (var order in Model)
+                {
+                    <div class="card mb-3">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <div>
+                                <h5 class="mb-0">注文番号: #@order.Id</h5>
+                                <small class="text-muted">注文日: @order.OrderDate.ToString("yyyy年MM月dd日 HH:mm")</small>
+                            </div>
+                            <div>
+                                <span class="badge bg-success">注文完了</span>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <h6>注文商品</h6>
+                                    <div class="row">
+                                        @foreach (var item in order.OrderItems.Take(3))
+                                        {
+                                            <div class="col-md-4 mb-2">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="flex-grow-1">
+                                                        <small class="fw-bold">@item.Product.Name</small><br>
+                                                        <small class="text-muted">¥@item.Price.ToString("N0") × @item.Quantity</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                        @if (order.OrderItems.Count > 3)
+                                        {
+                                            <div class="col-12">
+                                                <small class="text-muted">他 @(order.OrderItems.Count - 3) 商品</small>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                                <div class="col-md-4 text-end">
+                                    <h6>合計金額</h6>
+                                    <h4 class="text-primary">¥@order.TotalAmount.ToString("N0")</h4>
+                                    <div class="mt-2">
+                                        <a href="@Url.Action("Details", new { id = order.Id })" 
+                                           class="btn btn-outline-primary btn-sm">
+                                            <i class="fas fa-eye"></i> 詳細を見る
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- ページネーション -->
+        <nav aria-label="注文履歴ページネーション" class="mt-4">
+            <div class="d-flex justify-content-center">
+                <small class="text-muted">全ての注文履歴を表示中</small>
+            </div>
+        </nav>
+    }
+
+    <div class="mt-4">
+        <a href="@Url.Action("Index", "Product")" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left"></i> 商品一覧に戻る
+        </a>
+    </div>
+</div>

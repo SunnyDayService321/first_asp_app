@@ -1,0 +1,153 @@
+@model first_asp_app.Models.Order
+
+@{
+    ViewData["Title"] = "注文詳細";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>注文詳細</h1>
+        <a href="@Url.Action("Index")" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left"></i> 注文履歴に戻る
+        </a>
+    </div>
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @TempData["ErrorMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    <div class="row">
+        <!-- 注文情報 -->
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h4>注文情報</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-sm-4"><strong>注文番号:</strong></div>
+                        <div class="col-sm-8">#@Model.Id</div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-4"><strong>注文日時:</strong></div>
+                        <div class="col-sm-8">@Model.OrderDate.ToString("yyyy年MM月dd日 HH:mm")</div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-4"><strong>注文状況:</strong></div>
+                        <div class="col-sm-8">
+                            <span class="badge bg-success">注文完了</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h4>注文商品</h4>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>商品名</th>
+                                    <th>単価</th>
+                                    <th>数量</th>
+                                    <th class="text-end">小計</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    decimal subtotal = 0;
+                                }
+                                @foreach (var item in Model.OrderItems)
+                                {
+                                    var itemTotal = item.Price * item.Quantity;
+                                    subtotal += itemTotal;
+                                    <tr>
+                                        <td>
+                                            <strong>@item.Product.Name</strong><br>
+                                            <small class="text-muted">@item.Product.Description</small>
+                                        </td>
+                                        <td>¥@item.Price.ToString("N0")</td>
+                                        <td>@item.Quantity</td>
+                                        <td class="text-end">¥@itemTotal.ToString("N0")</td>
+                                    </tr>
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th colspan="3" class="text-end">商品合計:</th>
+                                    <th class="text-end">¥@subtotal.ToString("N0")</th>
+                                </tr>
+                                <tr>
+                                    <th colspan="3" class="text-end">送料:</th>
+                                    <th class="text-end">¥500</th>
+                                </tr>
+                                <tr class="table-primary">
+                                    <th colspan="3" class="text-end">合計金額:</th>
+                                    <th class="text-end">¥@Model.TotalAmount.ToString("N0")</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- サイドバー -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5>注文概要</h5>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>商品数:</span>
+                        <span>@Model.OrderItems.Sum(oi => oi.Quantity) 個</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>商品種類:</span>
+                        <span>@Model.OrderItems.Count 種類</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>商品合計:</span>
+                        <span>¥@(Model.TotalAmount - 500).ToString("N0")</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>送料:</span>
+                        <span>¥500</span>
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-between fw-bold h5">
+                        <span>合計:</span>
+                        <span class="text-primary">¥@Model.TotalAmount.ToString("N0")</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mt-3">
+                <div class="card-header">
+                    <h6>配送情報</h6>
+                </div>
+                <div class="card-body">
+                    <p><i class="fas fa-truck text-info"></i> <strong>配送状況:</strong> 配送完了</p>
+                    <p><i class="fas fa-calendar text-warning"></i> <strong>お届け予定:</strong> 2-3営業日</p>
+                    <small class="text-muted">
+                        ※実際の配送は注文処理システムと連携して表示されます
+                    </small>
+                </div>
+            </div>
+
+            <div class="mt-3">
+                <a href="@Url.Action("Index", "Product")" class="btn btn-primary w-100">
+                    <i class="fas fa-shopping-bag"></i> 再度購入する
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

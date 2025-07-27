@@ -23,24 +23,37 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-controller="Product" asp-action="Index">商品一覧</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Cart" asp-action="Index">カート</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Order" asp-action="Index">注文履歴</a>
-                        </li>
-                        <li class="nav-item ms-auto">
-                            @if (User.Identity?.IsAuthenticated == true)
-                            {
-                                <form method="post" asp-controller="Account" asp-action="Logout" class="form-inline">
-                                    <button type="submit" class="nav-link btn btn-link text-dark">ログアウト</button>
+                        @if (User.Identity?.IsAuthenticated == true)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Cart" asp-action="Index">カート</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Order" asp-action="Index">注文履歴</a>
+                            </li>
+                        }
+                    </ul>
+                    <ul class="navbar-nav">
+                        @if (User.Identity?.IsAuthenticated == true)
+                        {
+                            <li class="nav-item">
+                                <span class="navbar-text me-3">こんにちは、@User.Identity.Name さん</span>
+                            </li>
+                            <li class="nav-item">
+                                <form method="post" asp-controller="Account" asp-action="Logout" class="d-inline">
+                                    <button type="submit" class="nav-link btn btn-link text-dark border-0">ログアウト</button>
                                 </form>
-                            }
-                            else
-                            {
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
                                 <a class="nav-link text-dark" asp-controller="Account" asp-action="Login">ログイン</a>
-                            }
-                        </li>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Account" asp-action="Register">新規登録</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
@@ -55,9 +68,9 @@
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; @DateTime.Now.Year - ECショップ
-            <a asp-controller="Home" asp-action="About">会社概要</a> |
-            <a asp-controller="Home" asp-action="Contact">お問い合わせ</a> |
-            <a asp-controller="Home" asp-action="PrivacyPolicy">プライバシーポリシー</a>
+            <a asp-controller="Product" asp-action="Index">会社概要</a> |
+            <a asp-controller="Contact" asp-action="Index">お問い合わせ</a> |
+            <a asp-controller="Product" asp-action="Index">プライバシーポリシー</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

@@ -1,0 +1,202 @@
+@model first_asp_app.Models.ContactViewModel
+
+@{
+    ViewData["Title"] = "お問い合わせ";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h1 class="text-center mb-4">お問い合わせ</h1>
+
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <i class="fas fa-check-circle"></i> @TempData["SuccessMessage"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            }
+
+            @if (TempData["ErrorMessage"] != null)
+            {
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <i class="fas fa-exclamation-triangle"></i> @TempData["ErrorMessage"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            }
+
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title mb-0">
+                        <i class="fas fa-envelope text-primary"></i> お問い合わせフォーム
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <p class="text-muted mb-4">
+                        ご質問、ご意見、ご要望などがございましたら、下記フォームよりお気軽にお問い合わせください。<br>
+                        内容を確認次第、担当者よりご連絡いたします。
+                    </p>
+
+                    <form asp-action="Index" method="post" novalidate>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="Name" class="form-label">
+                                    <span class="text-danger">*</span> @Html.DisplayNameFor(m => m.Name)
+                                </label>
+                                <input asp-for="Name" class="form-control" placeholder="例: 山田太郎">
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="Email" class="form-label">
+                                    <span class="text-danger">*</span> @Html.DisplayNameFor(m => m.Email)
+                                </label>
+                                <input asp-for="Email" type="email" class="form-control" placeholder="例: example@email.com">
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="Category" class="form-label">@Html.DisplayNameFor(m => m.Category)</label>
+                                <select asp-for="Category" class="form-select">
+                                    <option value="一般">一般的なお問い合わせ</option>
+                                    <option value="商品">商品について</option>
+                                    <option value="注文">注文・配送について</option>
+                                    <option value="返品">返品・交換について</option>
+                                    <option value="技術">技術的な問題</option>
+                                    <option value="その他">その他</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="PhoneNumber" class="form-label">@Html.DisplayNameFor(m => m.PhoneNumber)</label>
+                                <input asp-for="PhoneNumber" type="tel" class="form-control" placeholder="例: 090-1234-5678">
+                                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                                <small class="form-text text-muted">緊急時の連絡先（任意）</small>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Subject" class="form-label">
+                                <span class="text-danger">*</span> @Html.DisplayNameFor(m => m.Subject)
+                            </label>
+                            <input asp-for="Subject" class="form-control" placeholder="例: 商品の在庫について">
+                            <span asp-validation-for="Subject" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-4">
+                            <label asp-for="Message" class="form-label">
+                                <span class="text-danger">*</span> @Html.DisplayNameFor(m => m.Message)
+                            </label>
+                            <textarea asp-for="Message" class="form-control" rows="6"
+                                      placeholder="お問い合わせ内容を詳しくお書きください"></textarea>
+                            <span asp-validation-for="Message" class="text-danger"></span>
+                            <small class="form-text text-muted">1000文字以内でご記入ください</small>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="privacyCheck" required>
+                                <label class="form-check-label" for="privacyCheck">
+                                    <a href="@Url.Action("Index", "Product")" target="_blank">プライバシーポリシー</a>に同意します
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary btn-lg px-5">
+                                <i class="fas fa-paper-plane"></i> 送信する
+                            </button>
+                            <a href="@Url.Action("Index", "Product")" class="btn btn-outline-secondary btn-lg px-4 ms-3">
+                                <i class="fas fa-arrow-left"></i> 戻る
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- よくある質問セクション -->
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h4 class="mb-0">
+                        <i class="fas fa-question-circle text-info"></i> よくある質問
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <div class="accordion" id="faqAccordion">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                                    配送にはどのくらい時間がかかりますか？
+                                </button>
+                            </h2>
+                            <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    通常、ご注文から2-3営業日でお届けいたします。お急ぎの場合は、お問い合わせください。
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                                    返品・交換は可能ですか？
+                                </button>
+                            </h2>
+                            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    商品到着から7日以内であれば、未使用品に限り返品・交換を承ります。
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                                    支払い方法は何がありますか？
+                                </button>
+                            </h2>
+                            <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    クレジットカード、銀行振込、代金引換をご利用いただけます。
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 連絡先情報 -->
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h4 class="mb-0">
+                        <i class="fas fa-info-circle text-success"></i> その他の連絡方法
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4 text-center">
+                            <i class="fas fa-phone fa-2x text-primary mb-2"></i>
+                            <h6>お電話</h6>
+                            <p class="mb-0">0120-123-456<br>
+                            <small class="text-muted">平日 9:00-18:00</small></p>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <i class="fas fa-envelope fa-2x text-primary mb-2"></i>
+                            <h6>メール</h6>
+                            <p class="mb-0">support@ecshop.com<br>
+                            <small class="text-muted">24時間受付</small></p>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <i class="fas fa-clock fa-2x text-primary mb-2"></i>
+                            <h6>営業時間</h6>
+                            <p class="mb-0">平日 9:00-18:00<br>
+                            <small class="text-muted">土日祝休み</small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

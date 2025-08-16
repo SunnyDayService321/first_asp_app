@@ -1,0 +1,58 @@
+@{
+    ViewData["Title"] = "会社概要";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h1 class="text-center mb-4">会社概要</h1>
+
+            <div class="card">
+                <div class="card-body">
+                    <h3>株式会社ECショップ</h3>
+
+                    <table class="table table-borderless mt-4">
+                        <tr>
+                            <th width="150">会社名</th>
+                            <td>株式会社ECショップ</td>
+                        </tr>
+                        <tr>
+                            <th>設立</th>
+                            <td>2025年8月1日</td>
+                        </tr>
+                        <tr>
+                            <th>代表者</th>
+                            <td>代表取締役社長 山田太郎</td>
+                        </tr>
+                        <tr>
+                            <th>事業内容</th>
+                            <td>オンライン商品販売事業</td>
+                        </tr>
+                        <tr>
+                            <th>所在地</th>
+                            <td>〒100-0001 東京都千代田区千代田1-1-1</td>
+                        </tr>
+                        <tr>
+                            <th>電話番号</th>
+                            <td>03-1234-5678</td>
+                        </tr>
+                        <tr>
+                            <th>メール</th>
+                            <td>info@ecshop.co.jp</td>
+                        </tr>
+                    </table>
+
+                    <h4 class="mt-4">企業理念</h4>
+                    <p>お客様に最高のショッピング体験を提供し、豊かな生活をサポートします。</p>
+
+                    <h4 class="mt-4">営業時間</h4>
+                    <p>平日 9:00-18:00（土日祝休み）</p>
+                </div>
+            </div>
+
+            <div class="text-center mt-4">
+                <a href="@Url.Action("Index", "Product")" class="btn btn-primary">商品一覧に戻る</a>
+            </div>
+        </div>
+    </div>
+</div>

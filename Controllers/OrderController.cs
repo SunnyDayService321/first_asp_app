@@ -83,111 +83,56 @@ public class OrderController : Controller
         }
     }
 
+
     public async Task<IActionResult> ReOrder(int id)
     {
-        return RedirectToAction("Checkout", "Cart");
-    // try
-    // {
-    //     var order = await _context.Order
-    //         .Include(o => o.OrderItems)
-    //         .ThenInclude(oi => oi.Product)
-    //         .FirstOrDefaultAsync(o => o.Id == id);
+        try
+        {
+            // CartControllerと同じ方法でユーザーIDを取得
+            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "0");
 
-    //     if (order == null)
-    //     {
-    //         TempData["ErrorMessage"] = "指定された注文が見つかりません。";
-    //         return RedirectToAction("Index");
-    //     }
+            if (userId == 0)
+            {
+                TempData["ErrorMessage"] = "ログインが必要です。";
+                return RedirectToAction("Index");
+            }
 
-    //     int userId = int.TryParse(HttpContext.Session.GetString("UserId"), out int parsedUserId) ? parsedUserId : 1;
+            var order = await _context.Order
+                .Include(o => o.OrderItems)
+                .ThenInclude(oi => oi.Product)
+                .FirstOrDefaultAsync(o => o.Id == id && o.UserId == userId);
 
-    //     // 既存のカートアイテムを個別に削除
-    //     foreach (var orderItem in order.OrderItems)
-    //     {
-    //         var existingItem = await _context.CartItems
-    //             .FirstOrDefaultAsync(c => c.UserId == userId && c.ProductId == orderItem.ProductId);
+            if (order == null)
+            {
+                TempData["ErrorMessage"] = "指定された注文が見つかりません。";
+                return RedirectToAction("Index");
+            }
 
-    //         if (existingItem != null)
-    //         {
-    //             _context.CartItems.Remove(existingItem);
-    //         }
-    //     }
+            // 既存のカートをクリア
+            var existingCartItems = _context.CartItems.Where(c => c.UserId == userId);
+            _context.CartItems.RemoveRange(existingCartItems);
 
-    //     await _context.SaveChangesAsync();
+            // 注文商品をカートに追加
+            foreach (var orderItem in order.OrderItems)
+            {
+                var cartItem = new CartItem
+                {
+                    UserId = userId,
+                    ProductId = orderItem.ProductId,
+                    Quantity = orderItem.Quantity
+                };
+                _context.CartItems.Add(cartItem);
+            }
 
-    //     // 新しいカートアイテムを追加
-    //     foreach (var orderItem in order.OrderItems)
-    //     {
-    //         var cartItem = new CartItem
-    //         {
-    //             UserId = userId,
-    //             ProductId = orderItem.ProductId,
-    //             Quantity = orderItem.Quantity
-    //         };
-    //         _context.CartItems.Add(cartItem);
-    //     }
+            await _context.SaveChangesAsync();
 
-    //     await _context.SaveChangesAsync();
-    //     return RedirectToAction("Checkout", "Cart");
-    // }
-    // catch (Exception ex)
-    // {
-    //     TempData["ErrorMessage"] = $"再注文処理中にエラーが発生しました: {ex.Message}";
-    //     return RedirectToAction("Details", new { id = id });
-    // }
+            TempData["SuccessMessage"] = "商品をカートに追加しました。";
+            return RedirectToAction("Checkout", "Cart");
+        }
+        catch (Exception ex)
+        {
+            TempData["ErrorMessage"] = $"再注文処理中にエラーが発生しました: {ex.Message}";
+            return RedirectToAction("Details", new { id = id });
+        }
     }
-
-    // public async Task<IActionResult> ReOrder(int id)
-    // {
-    //     try
-    //     {
-    //         // 注文を取得
-    //         var order = await _context.Order
-    //             .Include(o => o.OrderItems)
-    //             .ThenInclude(oi => oi.Product)
-    //             .FirstOrDefaultAsync(o => o.Id == id);
-
-    //         if (order == null)
-    //         {
-    //             TempData["ErrorMessage"] = "指定された注文が見つかりません。";
-    //             return RedirectToAction("Index");
-    //         }
-
-    //         // ユーザーIDを取得
-    //         var userIdString = HttpContext.Session.GetString("UserId");
-    //         int userId;
-
-    //         if (string.IsNullOrEmpty(userIdString) || !int.TryParse(userIdString, out userId))
-    //         {
-    //             // ログインしていない場合は固定値を使用
-    //             userId = 1; // デフォルト値
-    //         }
-
-    //         // 現在のカートをクリア
-    //         var existingCartItems = _context.CartItems.Where(c => c.UserId == userId);
-    //         _context.CartItems.RemoveRange(existingCartItems);
-
-    //         // 注文商品をカートに追加
-    //         foreach (var orderItem in order.OrderItems)
-    //         {
-    //             var cartItem = new CartItem
-    //             {
-    //                 UserId = userId,
-    //                 ProductId = orderItem.ProductId,
-    //                 Quantity = orderItem.Quantity
-    //             };
-    //             _context.CartItems.Add(cartItem);
-    //         }
-
-    //         await _context.SaveChangesAsync();
-
-    //         // チェックアウトページにリダイレクト
-    //         return RedirectToAction("Checkout", "Cart");
-    //     }
-    //     catch (Exception ex)
-    //     {
-    //         TempData["ErrorMessage"] = "再注文処理中にエラーが発生しました。";
-    //         return RedirectToAction("Details", new { id = id });
-    //     }
-    // }
 }
